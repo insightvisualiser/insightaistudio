@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — INSIGHT</title>
+<style>
+:root{--ink:#111514;--muted:#69736f;--line:#e2e8e5;--bg:#f3f5f4;--green:#1e5d56;--green2:#164b46}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);font-family:Manrope,Inter,Arial,sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center;padding:28px}
+.shell{width:min(1080px,100%);min-height:700px;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;display:grid;grid-template-columns:1fr 1.05fr;box-shadow:0 22px 70px rgba(17,21,20,.10)}
+.brand{background:var(--ink);color:#fff;padding:54px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.brand:after{content:"";position:absolute;width:400px;height:400px;right:-180px;bottom:-180px;border:1px solid rgba(255,255,255,.08);border-radius:50%;box-shadow:0 0 0 75px rgba(255,255,255,.025),0 0 0 150px rgba(255,255,255,.018)}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1px;position:relative;z-index:1}.tag{margin-top:7px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#9ca7a3;position:relative;z-index:1}
+.copy{max-width:410px;position:relative;z-index:1}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;color:#83aaa4;margin-bottom:16px}.copy h1{font-size:42px;line-height:1.08;letter-spacing:-1.7px;margin:0 0 18px}.copy p{margin:0;color:#aeb8b4;font-size:15px;line-height:1.75}.foot{font-size:11px;color:#68736f;position:relative;z-index:1}
+.form{padding:48px 54px;display:flex;align-items:center}.wrap{width:100%;max-width:460px;margin:auto}.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:700;margin-bottom:30px}.back:hover{color:var(--ink)}
+h2{font-size:30px;letter-spacing:-1px;margin:0 0 10px}.intro{font-size:14px;line-height:1.7;color:var(--muted);margin:0 0 28px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin-bottom:17px}label{display:block;font-size:12px;font-weight:800;margin:0 0 9px}
+input{width:100%;height:50px;border:1px solid #d7dfdc;border-radius:11px;padding:0 14px;font:inherit;font-size:14px;outline:0;background:#fff;transition:.18s}input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(30,93,86,.09)}.password{position:relative}.password input{padding-right:65px}.show{position:absolute;right:11px;bottom:9px;border:0;background:transparent;color:var(--green);font-size:12px;font-weight:800;cursor:pointer;padding:5px}
+button.submit{width:100%;height:52px;border:0;border-radius:11px;background:var(--green);color:#fff;font:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:.18s;margin-top:2px}button.submit:hover{background:var(--green2);transform:translateY(-1px)}button.submit:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.message{display:none;margin-top:18px;padding:13px 14px;border-radius:10px;font-size:13px;line-height:1.55}.message.show{display:block}.message.error{background:#fff1f0;color:#8a3d38;border:1px solid #f0d5d2}
+.login{text-align:center;margin-top:24px;font-size:13px;color:var(--muted)}.login a{color:var(--green);font-weight:800;text-decoration:none}.login a:hover{text-decoration:underline}.note{margin-top:18px;text-align:center;font-size:11px;line-height:1.6;color:#89938f}
+@media(max-width:800px){body{padding:14px}.shell{grid-template-columns:1fr;min-height:auto}.brand{min-height:290px;padding:34px}.copy h1{font-size:34px}.foot{display:none}.form{padding:36px 28px}}@media(max-width:480px){.grid{grid-template-columns:1fr;gap:0}.brand{min-height:270px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<section class="brand">
+<div><div class="logo">INSIGHT</div><div class="tag">Visualize. Inspire. Sell.</div></div>
+<div class="copy"><div class="eyebrow">Retail visualization platform</div><h1>Show it. Before you buy it.</h1><p>Create your INSIGHT workspace and give customers a clearer way to experience materials, spaces and products before they make a decision.</p></div>
+<div class="foot">© 2026 INSIGHT. All rights reserved.</div>
+</section>
+<section class="form">
+<div class="wrap">
+<a class="back" href="insightvis_login.html"><span>←</span> Back to sign in</a>
+<h2>Create your account</h2>
+<p class="intro">Set up your retailer workspace in a few simple steps.</p>
+<form id="signupForm">
+<div class="grid">
+<div class="field"><label for="firstName">First name</label><input id="firstName" type="text" placeholder="First name" autocomplete="given-name" required></div>
+<div class="field"><label for="lastName">Last name</label><input id="lastName" type="text" placeholder="Last name" autocomplete="family-name" required></div>
+</div>
+<div class="field"><label for="companyName">Company name</label><input id="companyName" type="text" placeholder="Your company" autocomplete="organization" required></div>
+<div class="field"><label for="email">Work email</label><input id="email" type="email" placeholder="you@company.com" autocomplete="email" required></div>
+<div class="grid">
+<div class="field password"><label for="password">Password</label><input id="password" type="password" placeholder="Create password" autocomplete="new-password" minlength="8" required><button class="show" type="button" id="showPassword">Show</button></div>
+<div class="field password"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" type="password" placeholder="Repeat password" autocomplete="new-password" minlength="8" required><button class="show" type="button" id="showConfirm">Show</button></div>
+</div>
+<button class="submit" id="signupBtn" type="submit">Create account</button>
+</form>
+<div id="message" class="message"></div>
+<div class="login">Already have an account? <a href="insightvis_login.html">Sign in</a></div>
+<div class="note">By creating an account, you agree to use INSIGHT in accordance with your organization's policies and applicable terms.</div>
+</div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+const supabase=window.supabase.createClient("https://yomrkurhyntlkhatngsh.supabase.co","sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL");
+const form=document.getElementById("signupForm"), firstName=document.getElementById("firstName"), lastName=document.getElementById("lastName"), companyName=document.getElementById("companyName"), email=document.getElementById("email"), password=document.getElementById("password"), confirmPassword=document.getElementById("confirmPassword"), signupBtn=document.getElementById("signupBtn"), message=document.getElementById("message");
+const showMessage=(t,c)=>{message.textContent=t;message.className="message show "+c};
+function toggle(id,input){document.getElementById(id).addEventListener("click",e=>{e.preventDefault();const show=input.type==="password";input.type=show?"text":"password";document.getElementById(id).textContent=show?"Hide":"Show"})}
+toggle("showPassword",password);toggle("showConfirm",confirmPassword);
+// Do not auto-redirect on page load. The dashboard is reached only after authentication.
+form.addEventListener("submit",async e=>{
+e.preventDefault();message.className="message";
+if(password.value.length<8)return showMessage("Your password must be at least 8 characters.","error");
+if(password.value!==confirmPassword.value)return showMessage("The passwords do not match.","error");
+signupBtn.disabled=true;signupBtn.textContent="Creating account…";
+const emailAddress=email.value.trim();
+const {error}=await supabase.auth.signUp({email:emailAddress,password:password.value,options:{emailRedirectTo:window.location.origin+"/insightvis_login.html",data:{first_name:firstName.value.trim(),last_name:lastName.value.trim(),company_name:companyName.value.trim(),company:companyName.value.trim()}}});
+if(error){showMessage(error.message,"error");signupBtn.disabled=false;signupBtn.textContent="Create account";return}
+window.location.replace("insightvis_confirmation_sent.html?email="+encodeURIComponent(emailAddress));
+});
+});
+</script>
+</body>
+</html>

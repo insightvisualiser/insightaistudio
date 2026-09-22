@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INSIGHT — Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f5;color:#17201e;font-family:"DM Sans",sans-serif}a{text-decoration:none;color:inherit}button,select{font:inherit}
+.layout{min-height:100vh}
+.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
+.side .logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px;text-decoration:none}
+.side .logo b{color:#75b7a9}
+.side .label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
+.side .nav{display:grid;gap:3px;flex:0 0 auto;overflow:visible}
+.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none}
+.side .nav a:hover,.side .nav a.active{background:#1d2927;color:#fff}
+.side .nav a.active{box-shadow:inset 3px 0 0 #75b7a9}
+.side .ico{width:18px;text-align:center;color:#80908b}
+.side .active .ico{color:#72a9a2}
+.side .bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
+.side .profile{display:flex;gap:10px;align-items:center;padding:10px}
+.side .avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}
+.side .profile strong{display:block;font-size:12px;color:#e6ecea}
+.side .profile small{display:block;color:#697571;font-size:10px;margin-top:2px}
+.side .signout{border:0;background:none;color:#899490;cursor:pointer;font-size:12px;padding:9px 10px}
+.content{margin-left:240px;padding:30px 34px 45px;max-width:1500px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.crumb{font-size:12px;color:#899590}.actions{display:flex;gap:9px}.btn{height:38px;border:1px solid #d9e1de;background:#fff;border-radius:9px;padding:0 14px;font-size:12px;font-weight:700;color:#42504c;cursor:pointer}.btn.primary{background:#1e5d56;color:#fff;border-color:#1e5d56}.hero{background:#14201e;color:#fff;border-radius:17px;padding:28px 29px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;margin-bottom:24px}.hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #ffffff0d;border-radius:50%;right:-130px;top:-140px}.hero h1{position:relative;z-index:1;font:800 29px Manrope;margin:0 0 7px;letter-spacing:-1px}.hero p{position:relative;z-index:1;color:#a4b0ad;font-size:13px;margin:0}.hero .btn{position:relative;z-index:1;background:#72a9a2;border:0;color:#10201d}.title{font:800 18px Manrope;letter-spacing:-.5px;margin:0 0 13px}.quick,.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.quick{margin-bottom:27px}.quick-card,.kpi,.card{background:#fff;border:1px solid #e0e7e4;border-radius:13px}.quick-card{padding:17px;min-height:140px;display:flex;flex-direction:column}.qicon{width:34px;height:34px;border-radius:9px;background:#e8f0ee;color:#1e5d56;display:grid;place-items:center;font-weight:800;margin-bottom:12px}.tag{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:#899490;font-weight:800}.quick-card h3{font:700 14px Manrope;margin:4px 0}.quick-card p{font-size:11px;color:#7b8683;line-height:1.45;margin:0}.quick-card a{margin-top:auto;padding-top:12px;color:#1e5d56;font-size:11px;font-weight:800}.kpi{padding:18px;margin-bottom:27px}.klabel{font-size:11px;color:#7a8582}.value{font:800 26px Manrope;letter-spacing:-1px;margin:8px 0 3px}.hint{font-size:10px;color:#1e5d56;font-weight:700}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.select{height:36px;background:#fff;border:1px solid #dbe3e0;border-radius:8px;padding:0 11px;font-size:11px;color:#53615d}.overview{display:grid;grid-template-columns:1.5fr .8fr;gap:13px;margin-bottom:27px}.card{padding:20px}.ctitle{font:700 14px Manrope}.sub{font-size:10px;color:#899490;margin-top:4px}.chart{height:180px;margin-top:20px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #e4e9e7;padding:0 4px;position:relative;overflow:visible}.bar{align-self:flex-end}.bar{flex:1;background:#d8e5e2;border-radius:5px 5px 0 0;position:relative;min-height:18px}.bar:nth-child(2),.bar:nth-child(5),.bar:nth-child(6){background:#1e5d56}.bar span{position:absolute;bottom:-19px;left:50%;transform:translateX(-50%);font-size:9px;color:#899490}.snap{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #edf0ef;font-size:11px;color:#6c7874}.snap:last-child{border:0}.snap strong{font:800 14px Manrope;color:#17201e}.activity{display:grid;grid-template-columns:1.35fr .65fr;gap:13px}.item{display:flex;gap:11px;padding:14px 0;border-bottom:1px solid #edf0ef}.item:last-child{border:0}.dot{width:8px;height:8px;border-radius:50%;background:#1e5d56;margin-top:5px}.item strong{font-size:11px}.item small{display:block;color:#909a97;font-size:10px;margin-top:4px;line-height:1.45}
+@media(max-width:1050px){.quick,.kpis{grid-template-columns:repeat(2,1fr)}.overview,.activity{grid-template-columns:1fr}}
+@media(max-width:700px){.side{width:66px;padding:20px 8px}.side .logo{font-size:0;padding:0 10px 28px}.side .logo:first-letter{font-size:24px}.side .label,.side .nav a span:not(.ico),.side .profile div:not(.avatar),.side .signout{display:none}.side .nav a{justify-content:center;padding:0}.content{margin-left:66px;padding:20px 15px}.top{align-items:flex-start}.actions .btn:first-child{display:none}.hero{flex-direction:column;align-items:flex-start;gap:18px}.quick,.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<a class="logo" href="insightvis_dashboard.html">INSIGHT<b>.</b></a>
+<div class="label">Workspace</div>
+<nav class="nav">
+<a class="active" href="insightvis_dashboard.html"><span class="ico">⌂</span><span>Dashboard</span></a>
+<a href="insightvis_products.html"><span class="ico">▦</span><span>Products</span></a>
+<a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
+<a href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
+<a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
+<a href="insightvis_projects.html"><span class="ico">⌑</span><span>Projects</span></a>
+<a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
+<a href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
+</nav>
+<div class="bottom">
+<div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Loading…</strong><small id="companyName">Loading…</small></div></div>
+<button class="signout" id="signout">Sign out</button>
+</div>
+</aside>
+
+<main class="content">
+<div class="top"><div class="crumb">Workspace / Dashboard</div><div class="actions"><button class="btn" onclick="location.href='insightvis_products.html'">Manage products</button><button class="btn primary" onclick="location.href='insightvis_visualizer.html'">Open visualizer</button></div></div>
+
+<section class="hero">
+<div><h1 id="greeting">Welcome back.</h1><p>Your retailer workspace, all in one place.</p></div>
+<button class="btn" onclick="location.href='insightvis_visualizer.html'">Open visualizer →</button>
+</section>
+
+<h2 class="title">Quick Access</h2>
+<div class="quick">
+<div class="quick-card"><div class="qicon">▦</div><div class="tag">Catalogue</div><h3>Products</h3><p>Manage and publish your interior materials.</p><a href="insightvis_products.html">Manage products →</a></div>
+<div class="quick-card"><div class="qicon">⌂</div><div class="tag">Experiences</div><h3>Rooms</h3><p>Manage spaces available to customers.</p><a href="insightvis_rooms.html">Manage rooms →</a></div>
+<div class="quick-card"><div class="qicon">↗</div><div class="tag">Customer tool</div><h3>Visualizer</h3><p>Open the material visualization experience.</p><a href="insightvis_visualizer.html">Open visualizer →</a></div>
+<div class="quick-card"><div class="qicon">◎</div><div class="tag">Sales</div><h3>Leads</h3><p>Review enquiries generated by customers.</p><a href="insightvis_leads.html">View leads →</a></div>
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="klabel">Active products</div><div class="value" id="products">—</div><div class="hint">Published catalogue</div></div>
+<div class="kpi"><div class="klabel">Room templates</div><div class="value" id="rooms">—</div><div class="hint">Available experiences</div></div>
+<div class="kpi"><div class="klabel">Visualizations</div><div class="value" id="visuals">—</div><div class="hint">Customer sessions</div></div>
+<div class="kpi"><div class="klabel">New leads</div><div class="value" id="leads">—</div><div class="hint">Needs attention</div></div>
+</div>
+
+<div class="sectionhead"><h2 class="title" style="margin:0">Business Overview</h2><select class="select"><option>Last 6 months</option><option>Last 1 month</option><option>Last 3 months</option><option>Last 12 months</option></select></div>
+<div class="overview">
+<div class="card"><div class="ctitle">Visualizations</div><div class="sub">Customer visualization sessions</div><div class="chart"><div class="bar" style="height:34%"><span>Apr</span></div><div class="bar" style="height:47%"><span>May</span></div><div class="bar" style="height:43%"><span>Jun</span></div><div class="bar" style="height:61%"><span>Jul</span></div><div class="bar" style="height:78%"><span>Aug</span></div><div class="bar" style="height:90%"><span>Sep</span></div></div></div>
+<div class="card"><div class="ctitle">Catalogue Snapshot</div><div class="sub">Current workspace</div><div class="snap"><span>Products</span><strong id="sp">—</strong></div><div class="snap"><span>Rooms</span><strong id="sr">—</strong></div><div class="snap"><span>Brands</span><strong id="sb">—</strong></div><div class="snap"><span>Collections</span><strong id="sc">—</strong></div></div>
+</div>
+
+<div class="activity">
+<div class="card"><div class="ctitle">Recent Activity</div><div class="sub">Latest workspace events</div>
+<div class="item"><div class="dot"></div><div><strong>Workspace connected</strong><small>Your authenticated retailer workspace is ready.</small></div></div>
+<div class="item"><div class="dot"></div><div><strong>Catalogue</strong><small>Products and collections will appear here as you build the catalogue.</small></div></div>
+<div class="item"><div class="dot"></div><div><strong>Customer activity</strong><small>Visualization sessions and leads will be tracked here.</small></div></div>
+</div>
+<div class="card"><div class="ctitle">Account</div><div class="sub">Signed-in user</div><div style="margin-top:20px"><strong id="accountName" style="font:700 14px Manrope">Loading…</strong><div id="accountEmail" style="font-size:11px;color:#7b8683;margin-top:5px">—</div></div></div>
+</div>
+</main>
+</div>
+
+<script>
+const SUPABASE_URL="https://yomrkurhyntlkhatngsh.supabase.co";
+const SUPABASE_KEY="sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL";
+
+const $=id=>document.getElementById(id);
+
+function initials(n){
+  return (n||"U").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase();
+}
+
+function greeting(){
+  const h=new Date().getHours();
+  return h<12 ? "Good morning" : h<17 ? "Good afternoon" : "Good evening";
+}
+
+function setAccount(name,email,company){
+  $("userName").textContent=name||"Account";
+  $("companyName").textContent=company||"INSIGHT";
+  $("avatar").textContent=initials(name||"IN");
+  $("accountName").textContent=name||"Account";
+  $("accountEmail").textContent=email||"";
+  $("greeting").textContent=greeting()+", "+(name||"there")+".";
+}
+
+function setKPIs(p,r,b,c,v,l){
+  $("products").textContent=p;
+  $("rooms").textContent=r;
+  $("visuals").textContent=v;
+  $("leads").textContent=l;
+  $("sp").textContent=p;
+  $("sr").textContent=r;
+  $("sb").textContent=b;
+  $("sc").textContent=c;
+}
+
+async function countRows(client,table,companyId,field,value){
+  let q=client.from(table).select("id",{count:"exact",head:true}).eq("company_id",companyId);
+  if(field) q=q.eq(field,value);
+  const result=await q;
+  if(result.error){
+    console.warn("INSIGHT:",table,result.error.message);
+    return 0;
+  }
+  return result.count||0;
+}
+
+async function initDashboard(){
+  // Wire sign-out first so it works even if any later database request fails.
+  $("signout").onclick=async function(){
+    const button=$("signout");
+    button.disabled=true;
+    button.textContent="Signing out…";
+    try{
+      if(window.__insightSupabase){
+        await window.__insightSupabase.auth.signOut();
+      }
+    }finally{
+      window.location.replace("insightvis_login.html");
+    }
+  };
+
+  // If the CDN is slow, wait briefly instead of failing at page startup.
+  let attempts=0;
+  while(!window.supabase && attempts<40){
+    await new Promise(r=>setTimeout(r,100));
+    attempts++;
+  }
+
+  if(!window.supabase){
+    setAccount("Account","", "INSIGHT");
+    setKPIs("—","—","—","—","—","—");
+    console.error("INSIGHT: Supabase client library did not load.");
+    return;
+  }
+
+  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  window.__insightSupabase=client;
+
+  try{
+    const sessionResult=await client.auth.getSession();
+    const session=sessionResult.data?.session;
+
+    if(!session){
+      window.location.replace("insightvis_login.html");
+      return;
+    }
+
+    const user=session.user;
+    const metadata=user.user_metadata||{};
+
+    // Populate immediately from Auth metadata so the dashboard never waits
+    // for the profile/company queries before showing the signed-in account.
+    const fallbackName=[metadata.first_name,metadata.last_name]
+      .filter(Boolean).join(" ") || user.email?.split("@")[0] || "Account";
+    setAccount(fallbackName,user.email||"",metadata.company_name||"Your company");
+
+    // Fetch the user's profile.
+    const profileResult=await client
+      .from("profiles")
+      .select("first_name,last_name,company_id")
+      .eq("id",user.id)
+      .maybeSingle();
+
+    if(profileResult.error){
+      console.warn("INSIGHT profile:",profileResult.error.message);
+    }
+
+    const profile=profileResult.data;
+
+    if(!profile || !profile.company_id){
+      // Auth account is valid even if the profile row is temporarily unavailable.
+      setKPIs("0","0","0","0","0","0");
+      return;
+    }
+
+    const name=[profile.first_name,profile.last_name]
+      .filter(Boolean).join(" ") || fallbackName;
+
+    let company=metadata.company_name||"Your company";
+
+    const companyResult=await client
+      .from("companies")
+      .select("name")
+      .eq("id",profile.company_id)
+      .maybeSingle();
+
+    if(!companyResult.error && companyResult.data?.name){
+      company=companyResult.data.name;
+    }
+
+    setAccount(name,user.email||"",company);
+
+    const c=profile.company_id;
+
+    // Each metric is independent: one table/query cannot freeze the dashboard.
+    const results=await Promise.allSettled([
+      countRows(client,"products",c,"status","published"),
+      countRows(client,"rooms",c),
+      countRows(client,"brands",c),
+      countRows(client,"collections",c),
+      countRows(client,"visualization_sessions",c),
+      countRows(client,"leads",c,"status","new")
+    ]);
+
+    const val=i=>results[i].status==="fulfilled" ? results[i].value : 0;
+
+    setKPIs(val(0),val(1),val(2),val(3),val(4),val(5));
+
+  }catch(error){
+    console.error("INSIGHT dashboard error:",error);
+    // Keep the authenticated account visible even if a data query fails.
+    setKPIs("0","0","0","0","0","0");
+  }
+}
+
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",initDashboard);
+}else{
+  initDashboard();
+}
+</script>
+</body>
+</html>

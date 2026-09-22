@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INSIGHT — From sample to space.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17201e;--green:#1e5d56;--cream:#f5f4f0;--muted:#68716e;--line:#e2e3de}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:"DM Sans",sans-serif}a{text-decoration:none;color:inherit}.wrap{width:min(1220px,calc(100% - 64px));margin:auto}
+header{height:76px;border-bottom:1px solid #e7eae7;background:#fff;display:flex;align-items:center}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between}.logo{display:flex;align-items:center;gap:10px;font:800 21px Manrope;letter-spacing:3px}.mark{display:flex;align-items:center;gap:3px}.mark i{display:block;width:4px;background:var(--ink);border-radius:1px}.mark i:nth-child(1){height:21px}.mark i:nth-child(2){height:27px}.mark i:nth-child(3){height:18px}
+.links{display:flex;align-items:center;gap:30px;margin-left:35px}.links a,.login{font-size:13px;font-weight:600;color:#39423f}.drop:after{content:"";margin-left:6px;color:#69716e}.right{display:flex;align-items:center;gap:20px}.navcta{background:var(--ink);color:white;padding:11px 17px;border-radius:8px;font-size:13px;font-weight:700}
+.hero{display:grid;grid-template-columns:42% 58%;min-height:590px;background:var(--cream);overflow:hidden}.copy{padding:70px max(32px,calc((100vw - 1220px)/2));padding-right:42px;display:flex;flex-direction:column;justify-content:center}.kicker{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#5e6965;font-weight:800;margin-bottom:19px}h1{font:800 clamp(45px,5vw,70px)/1.03 Manrope;letter-spacing:-3.8px;margin:0 0 22px}h1 span{display:block}.copy p{font-size:17px;line-height:1.65;color:#58635f;max-width:510px;margin:0 0 28px}.actions{display:flex;gap:12px}.primary{background:var(--green);color:#fff;padding:14px 21px;border-radius:8px;font-size:13px;font-weight:700}.secondary{background:#fff;border:1px solid #d7dcd8;padding:13px 19px;border-radius:8px;font-size:13px;font-weight:700}.benefits{display:flex;gap:28px;margin-top:36px}.benefit{font-size:11px;font-weight:600;line-height:1.35;display:flex;gap:8px;align-items:center}.bi{font-size:20px;color:var(--green)}
+.photo{position:relative;min-height:590px;overflow:hidden;background:#c9c0b4}.photo>img{width:100%;height:100%;object-fit:cover}.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(245,244,240,.18),transparent 25%)}.material{position:absolute;z-index:2;right:34px;top:86px;width:205px;background:#fffffff7;padding:9px;border-radius:13px;box-shadow:0 18px 45px #0002}.tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-bottom:8px}.tabs span{text-align:center;padding:9px 2px;border-radius:7px;font-size:10px;font-weight:700;color:#68716e}.tabs .active{background:var(--ink);color:#fff}.swatches{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sw{height:61px;border-radius:7px}.s1{background:linear-gradient(135deg,#dedbd4,#aaa79f)}.s2{background:linear-gradient(135deg,#d7c3a7,#96775a)}.s3{background:linear-gradient(135deg,#bfc0bc,#777872)}.s4{background:repeating-linear-gradient(45deg,#d5b997 0 7px,#a88361 7px 14px)}.s5{background:linear-gradient(135deg,#e4e0d8,#c6c0b3)}.s6{background:linear-gradient(135deg,#8e908c,#565956)}.matlabel{font-size:9px;color:#737b78;margin:9px 3px 1px}
+.trust{text-align:center;padding:27px 0 30px;border-bottom:1px solid #eee}.trustlabel{font-size:10px;font-weight:800;letter-spacing:2px;color:#858d89;margin-bottom:21px;text-transform:uppercase}.brands{display:flex;justify-content:space-between;color:#747b78;font:700 15px Manrope}
+.section{padding:88px 0}.head{text-align:center}.green{color:var(--green)}h2{font:800 42px/1.1 Manrope;letter-spacing:-2.2px;margin:0 0 13px}.intro{max-width:670px;margin:auto;color:var(--muted);font-size:15px;line-height:1.65}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:44px}.feature{border:1px solid var(--line);border-radius:13px;padding:24px;min-height:190px}.fi{font-size:24px;margin-bottom:42px}.feature h3{font:700 16px Manrope;margin:0 0 8px}.feature p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
+.spaces{background:#f6f5f1}.spacehead{display:flex;justify-content:space-between;align-items:end}.spacehead .head{text-align:left}.view{font-size:12px;font-weight:700}.spacegrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:34px}.space{height:210px;position:relative;border-radius:9px;overflow:hidden;background:#ddd}.space img{width:100%;height:100%;object-fit:cover;transition:.3s}.space:hover img{transform:scale(1.04)}.space:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,#0008)}.label{position:absolute;z-index:2;bottom:12px;left:12px;background:#fff;padding:9px 12px;border-radius:7px;font-size:11px;font-weight:700}
+.cta{padding:80px 0}.ctabox{background:var(--ink);color:#fff;border-radius:18px;padding:50px 55px;display:flex;justify-content:space-between;align-items:center;gap:40px}.ctabox .kicker{color:#91aaa5}.ctabox p{color:#aeb7b3;font-size:14px}.ctabtns{display:flex;gap:10px;white-space:nowrap}.white{background:#fff;color:var(--ink);padding:13px 18px;border-radius:8px;font-size:12px;font-weight:700}.outline{border:1px solid #59615e;padding:12px 18px;border-radius:8px;font-size:12px;font-weight:700}
+footer{border-top:1px solid var(--line);padding:25px 0;color:#7a8380;font-size:11px}.footer{display:flex;justify-content:space-between}.footerlinks{display:flex;gap:24px}
+@media(max-width:1000px){.links{gap:15px}.hero{grid-template-columns:1fr}.copy{padding:65px 32px}.photo{min-height:480px}.features{grid-template-columns:1fr 1fr}.spacegrid{grid-template-columns:repeat(3,1fr)}.space:nth-child(n+4){display:none}}
+@media(max-width:700px){.wrap{width:calc(100% - 32px)}header{height:auto;padding:14px 0}.links{display:none}.hero .copy{padding:52px 20px}.photo{min-height:390px}.material{right:15px;top:20px;width:180px}.benefits{flex-wrap:wrap;gap:14px}.brands{flex-wrap:wrap;justify-content:center;gap:18px}.features{grid-template-columns:1fr}.spacegrid{grid-template-columns:1fr 1fr}.space{height:175px}.ctabox{display:block;padding:38px 28px}.ctabtns{margin-top:25px}.footer{display:block}.footerlinks{margin-top:12px}}
+
+.photo{transition:background .25s ease}
+.material{z-index:5}
+.material .tabs span,.material .sw{cursor:pointer;transition:.18s}
+.material .tabs span:hover,.material .tabs span.active{color:#1e5d56}
+.material .sw{border:2px solid transparent}
+.material .sw.active{border-color:#fff;box-shadow:0 0 0 2px #1e5d56}
+.space{cursor:pointer}
+.space:focus{outline:2px solid #1e5d56;outline-offset:3px}
+
+.products-menu{position:relative;display:flex;align-items:center;height:auto}
+.products-link{display:flex;align-items:center;height:auto;line-height:1}
+.products-dropdown{position:absolute;top:38px;left:-14px;width:210px;background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 18px 45px #17201e18;padding:8px;display:grid;gap:2px;opacity:0;visibility:hidden;transform:translateY(5px);transition:.18s;z-index:30}
+.products-menu:hover .products-dropdown,.products-menu:focus-within .products-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.products-dropdown span{display:block;padding:9px 10px;border-radius:7px;font-size:11px;font-weight:600;color:#596560;cursor:default}
+.products-dropdown span:hover{background:#f0f4f2;color:#1e5d56}
+#products{scroll-margin-top:80px}
+@media(max-width:700px){.products-menu{display:none}}
+
+.catalogue{background:#fff}.catalogue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}.product-card{background:#f7f8f6;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.2s}.product-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px #17201e12}.product-card img{display:block;width:100%;height:175px;object-fit:cover}.product-card div{padding:15px 16px 17px}.product-card span{font-size:9px;letter-spacing:1.4px;font-weight:800;color:#1e5d56}.product-card h3{font:800 15px Manrope;margin:6px 0 0}.catalogue .spacehead{align-items:end}.catalogue .view{white-space:nowrap}.catalogue + .section{border-top:1px solid #e7eae7}@media(max-width:1050px){.catalogue-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.catalogue-grid{grid-template-columns:1fr}.catalogue .spacehead{display:block}.catalogue .view{display:inline-block;margin-top:15px}}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.price-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:25px;min-height:350px;display:flex;flex-direction:column}
+.price-card.featured{border-color:#72a9a2;box-shadow:0 12px 35px #1e5d5612}
+.price-kicker{font-size:9px;letter-spacing:1.2px;font-weight:800;color:#1e5d56}
+.price-card h3{font:800 19px Manrope;margin:9px 0 14px}
+.price{font:800 24px Manrope;letter-spacing:-1px}.price span{font:500 10px "DM Sans";color:#899490;letter-spacing:0}
+.price-card p{font-size:11px;line-height:1.55;color:var(--muted);min-height:50px}
+.price-line{font-size:11px;padding:10px 0;border-top:1px solid #edf0ef;color:#53615d}
+.price-btn{margin-top:auto;text-align:center}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}
+</style>
+
+<style id="product-menu-polish">
+.product-menu-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(150px,1fr));
+  gap:12px;
+  min-width:700px;
+}
+.product-menu-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px;
+  border-radius:12px;
+  color:#17201d;
+  background:#f7f9f8;
+  transition:.2s ease;
+}
+.product-menu-item:hover{background:#eef3f1;transform:translateY(-1px)}
+.product-menu-item img{
+  width:54px;height:54px;object-fit:cover;border-radius:9px;display:block;
+}
+.product-menu-item span{font-size:13px;font-weight:700;line-height:1.2}
+.nav-arrow{display:none!important}
+@media(max-width:900px){
+  .product-menu-grid{grid-template-columns:repeat(2,minmax(140px,1fr));min-width:0}
+}
+</style>
+
+<style id="no-header-arrows">
+.nav-arrow,.nav-caret,.caret,.header-arrow,.dropdown-arrow{display:none!important}
+.nav-link::after,.nav-link::before,.header-nav a::after,.header-nav a::before{content:none!important}
+</style>
+<style id="insight-hero-video-css">
+.hero-video-stage{position:absolute;inset:0;overflow:hidden;background:#c9c0b4}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .8s ease}
+.hero-video.active{opacity:1}
+.photo:after{z-index:3}
+.hero-video-stage{z-index:1}
+</style></head>
+<body>
+<header><div class="wrap nav">
+<a class="logo" href="insightvis_index.html"><span class="mark"><i></i><i></i><i></i></span>INSIGHT</a>
+<nav class="links"><a class="drop" href="#platform">Solutions</a><div class="products-menu">
+<a class="products-link" href="#products">Products</a>
+<div class="products-dropdown">
+<span>Wall Panels</span>
+<span>SPC Flooring</span>
+<span>Tiles</span>
+<span>Vinyl Flooring</span>
+<span>Wood Flooring</span>
+<span>Carpet</span>
+<span>Wall Finishes</span>
+<span>Natural Stone</span>
+</div>
+</div><a href="#retailers">For Retailers</a><a href="#pricing">Pricing</a><a class="drop" href="#resources">Resources</a></nav>
+<div class="right"><a class="login" href="insightvis_login.html">Log in</a><a class="navcta" href="insightvis_create_account.html">Get started&nbsp; →</a></div>
+</div></header>
+
+<section class="hero">
+<div class="copy"><h1><span>From sample</span><span>to space.</span></h1>
+<p>Help your customers visualize your products in real spaces. Increase confidence, reduce hesitation, and give your sales team a better way to showcase your range with INSIGHT.</p>
+<div class="actions"><a class="primary" href="insightvis_create_account.html">Get started&nbsp; →</a><a class="secondary" href="#visualizer-preview">◉ &nbsp;Try the preview</a></div>
+<div class="benefits"><div class="benefit"><span class="bi">↗</span>Boost<br>product sales</div><div class="benefit"><span class="bi">♧</span>Better customer<br>experience</div><div class="benefit"><span class="bi">◇</span>Reduce<br>returns</div></div></div>
+<div class="photo" id="visualizer-preview">
+<div class="hero-video-stage">
+  <video id="heroVideoA" class="hero-video active" muted autoplay playsinline preload="auto">
+    <source src="https://yomrkurhyntlkhatngsh.supabase.co/storage/v1/object/public/landing/hero-wood-to-space.mp4" type="video/mp4">
+  </video>
+  <video id="heroVideoB" class="hero-video" muted playsinline preload="auto">
+    <source src="https://yomrkurhyntlkhatngsh.supabase.co/storage/v1/object/public/landing/hero-floor-material.mp4" type="video/mp4">
+  </video>
+</div>
+</div>
+</section>
+
+<section class="trust" id="retailers"><div class="wrap"><div class="trustlabel">Built for the interior industry</div><div class="brands"><span>FLOORING</span><span>TILES</span><span>SURFACES</span><span>WALL FINISHES</span><span>INTERIORS</span></div></div></section>
+
+<section class="section catalogue" id="products"><div class="wrap"><div class="spacehead"><div class="head"><div class="kicker green">Explore our catalogue</div><h2>Products your customers can visualize</h2><p class="intro">Explore sample materials across the categories your catalogue can showcase with INSIGHT.</p></div><span class="view">Explore products&nbsp; →</span></div><div class="catalogue-grid">
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85" alt="Natural stone flooring"><div><span>FLOORING</span><h3>Natural Stone</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=82" alt="Wood flooring"><div><span>FLOORING</span><h3>Wood Flooring</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=82" alt="Tiles"><div><span>TILES</span><h3>Tiles</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=82" alt="Wall panels"><div><span>WALLS</span><h3>Wall Panels</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=82" alt="Vinyl flooring"><div><span>FLOORING</span><h3>Vinyl Flooring</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=82" alt="Wall finish"><div><span>WALLS</span><h3>Wall Finishes</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=82" alt="Carpet flooring"><div><span>FLOORING</span><h3>Carpet</h3></div></article>
+<article class="product-card"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=900&q=82" alt="SPC flooring"><div><span>FLOORING</span><h3>SPC Flooring</h3></div></article>
+</div></div></section><section class="section" id="platform"><div class="wrap"><div class="head"><div class="kicker green">Built for the way you sell</div><h2>Visualize. Inspire. Sell.</h2><p class="intro">Everything you need to showcase your products, inspire your customers, and create a more confident buying experience.</p></div>
+<div class="features"><article class="feature"><div class="fi">▧</div><h3>Real Spaces</h3><p>Show your products in beautifully curated rooms that help customers understand them in context.</p></article><article class="feature"><div class="fi">▱</div><h3>Multiple Finishes</h3><p>Let customers explore compatible floor, wall and surface options from your catalogue.</p></article><article class="feature"><div class="fi">⌑</div><h3>Drive More Sales</h3><p>Turn product inspiration into conversations and purchases with a clearer visual experience.</p></article><article class="feature"><div class="fi">♧</div><h3>Built for Retailers</h3><p>Manage products, brands, collections, rooms and leads from one retailer workspace.</p></article></div></div></section>
+
+<section class="section spaces"><div class="wrap"><div class="spacehead"><div class="head"><div class="kicker green">Explore our spaces</div><h2>Popular spaces</h2></div><a class="view" href="#platform">View all spaces&nbsp; →</a></div>
+<div class="spacegrid">
+<a class="space" href="#visualizer-preview" data-space="Living Room" data-image="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1500&q=85"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85" alt="Living room"><span class="label">Living Room&nbsp; →</span></a>
+<a class="space" href="#visualizer-preview" data-space="Kitchen" data-image="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1500&q=85"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=85" alt="Kitchen"><span class="label">Kitchen&nbsp; →</span></a>
+<a class="space" href="#visualizer-preview" data-space="Bedroom" data-image="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1500&q=85"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=85" alt="Bedroom"><span class="label">Bedroom&nbsp; →</span></a>
+<a class="space" href="#visualizer-preview" data-space="Bathroom" data-image="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1500&q=85"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=85" alt="Bathroom"><span class="label">Bathroom&nbsp; →</span></a>
+<a class="space" href="#visualizer-preview" data-space="Outdoor" data-image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1500&q=85"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=85" alt="Outdoor"><span class="label">Outdoor&nbsp; →</span></a>
+</div></div></section>
+
+
+<section class="section" id="pricing">
+<div class="wrap">
+<div class="head">
+<div class="kicker green">Simple retailer plans</div>
+<h2>Choose the workspace that fits your business.</h2>
+<p class="intro">Start small, then scale your catalogue, visualization and team as your business grows.</p>
+</div>
+<div class="pricing-grid">
+<article class="price-card">
+<div class="price-kicker">STARTER</div>
+<h3>Starter</h3>
+<div class="price">UGX 120,000 <span>/ month</span></div>
+<p>For retailers getting started with digital product visualization.</p>
+<div class="price-line">Product catalogue</div>
+<div class="price-line">Rooms & visualization</div>
+<div class="price-line">Lead capture</div>
+<a class="primary price-btn" href="insightvis_create_account.html">Get started&nbsp; →</a>
+</article>
+<article class="price-card featured">
+<div class="price-kicker">GROWTH</div>
+<h3>Growth</h3>
+<div class="price">UGX 350,000 <span>/ month</span></div>
+<p>For growing retailers managing a broader catalogue and customer experience.</p>
+<div class="price-line">Everything in Starter</div>
+<div class="price-line">Collections & brands</div>
+<div class="price-line">More rooms & products</div>
+<a class="primary price-btn" href="insightvis_create_account.html">Get started&nbsp; →</a>
+</article>
+<article class="price-card">
+<div class="price-kicker">PRO</div>
+<h3>Pro</h3>
+<div class="price">UGX 550,000 <span>/ month</span></div>
+<p>For established retailers that want a fuller visualization workspace.</p>
+<div class="price-line">Everything in Growth</div>
+<div class="price-line">Advanced workspace features</div>
+<div class="price-line">Expanded team & catalogue</div>
+<a class="primary price-btn" href="insightvis_create_account.html">Get started&nbsp; →</a>
+</article>
+</div>
+</div>
+</section>
+
+
+<footer id="resources"><div class="wrap footer"><span>© 2026 INSIGHT. Interior visualization platform.</span><div class="footerlinks"><a href="insightvis_login.html">Log in</a><a href="insightvis_create_account.html">Get started</a></div></div></footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  const photo=document.querySelector("#visualizer-preview");
+  const roomImage=photo?.querySelector("img");
+  const tabs=[...document.querySelectorAll(".material .tabs span")];
+  const swatches=[...document.querySelectorAll(".material .sw")];
+  const label=document.querySelector(".matlabel");
+
+  const materials={
+    Floor:[
+      ["#8f8170","#5e5146"],
+      ["#d7c5ad","#a88d70"],
+      ["#bfc0bc","#777872"],
+      ["#d5b997","#a88361"],
+      ["#e4e0d8","#c6c0b3"],
+      ["#8e908c","#565956"]
+    ],
+    Wall:[
+      ["#f4f1eb","#d7d0c5"],
+      ["#ddd8ce","#bcb5aa"],
+      ["#d7e0df","#aebfbd"],
+      ["#e7d9c9","#c9b19a"],
+      ["#c9d0cc","#909c97"],
+      ["#d1d1cb","#9e9e98"]
+    ],
+  };
+
+  let activeType="Floor";
+  let activeIndex=0;
+
+  function applyMaterial(){
+    const pair=materials[activeType][activeIndex];
+    // The real INSIGHT visualizer will use room masks/material textures.
+    // On the marketing preview, use a restrained finish overlay to demonstrate the interaction.
+    photo.style.background=`linear-gradient(135deg,${pair[0]},${pair[1]})`;
+    photo.style.backgroundBlendMode="multiply";
+    roomImage.style.opacity=".93";
+    tabs.forEach(t=>t.classList.toggle("active",t.textContent.trim()===activeType));
+    swatches.forEach((s,i)=>s.classList.toggle("active",i===activeIndex));
+    if(label) label.textContent=`${activeType} finish selected · Try another`;
+  }
+
+  function paintSwatches(){
+    const pairs=materials[activeType];
+    swatches.forEach((s,i)=>{
+      const p=pairs[i];
+      s.style.background=`linear-gradient(135deg,${p[0]},${p[1]})`;
+    });
+    applyMaterial();
+  }
+
+  tabs.forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      activeType=tab.textContent.trim();
+      activeIndex=0;
+      paintSwatches();
+    });
+  });
+
+  swatches.forEach((sw,i)=>{
+    sw.addEventListener("click",()=>{
+      activeIndex=i;
+      applyMaterial();
+    });
+  });
+
+  document.querySelectorAll(".space[data-image]").forEach(card=>{
+    card.addEventListener("click",()=>{
+      roomImage.src=card.dataset.image;
+      roomImage.alt=card.dataset.space;
+      document.querySelector("#visualizer-preview").scrollIntoView({behavior:"smooth",block:"center"});
+      if(label) label.textContent=`${card.dataset.space} · Choose a finish`;
+      photo.style.background="";
+      roomImage.style.opacity="1";
+    });
+  });
+
+  // Smooth scrolling for all same-page navigation.
+  document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener("click",e=>{
+      const id=link.getAttribute("href");
+      const target=document.querySelector(id);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:"smooth",block:"start"});
+      }
+    });
+  });
+
+  paintSwatches();
+});
+</script>
+<script id="insight-hero-video-js">
+(function(){
+  const videos=[document.getElementById("heroVideoA"),document.getElementById("heroVideoB")];
+  if(videos.some(v=>!v)) return;
+  let current=0, timer=null, switching=false;
+
+  function play(v){
+    const p=v.play();
+    if(p && p.catch) p.catch(()=>{});
+  }
+
+  function schedule(v){
+    if(timer) clearTimeout(timer);
+    const wait=Number.isFinite(v.duration) && v.duration>0 ? Math.max(500,(v.duration-.2)*1000) : 3000;
+    timer=setTimeout(()=>switchVideo(),wait);
+  }
+
+  function switchVideo(){
+    if(switching) return;
+    switching=true;
+    const next=(current+1)%videos.length;
+    const incoming=videos[next];
+    const outgoing=videos[current];
+    try{incoming.currentTime=0;}catch(e){}
+    play(incoming);
+    incoming.classList.add("active");
+    outgoing.classList.remove("active");
+    current=next;
+    setTimeout(()=>{outgoing.pause();switching=false;},850);
+    schedule(incoming);
+  }
+
+  videos.forEach((v,i)=>{
+    v.addEventListener("loadedmetadata",()=>{ if(i===current) schedule(v); });
+    v.addEventListener("ended",()=>{ if(i===current) switchVideo(); });
+  });
+
+  play(videos[0]);
+  if(videos[0].readyState>=1) schedule(videos[0]);
+
+  document.addEventListener("visibilitychange",()=>{
+    if(document.hidden) videos.forEach(v=>v.pause());
+    else { play(videos[current]); schedule(videos[current]); }
+  });
+})();
+</script></body></html>

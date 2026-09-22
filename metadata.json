@@ -1,0 +1,8 @@
+{
+  "name": "INSIGHT",
+  "description": "Interior visualization platform for retailers to showcase products, spaces, and finishes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

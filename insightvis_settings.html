@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INSIGHT — Settings</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6f5;color:#17201e;font-family:"DM Sans",sans-serif}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.layout{min-height:100vh}
+.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
+.logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px}.logo b{color:#72a9a2}
+.label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
+.nav{display:grid;gap:3px}.nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600}.nav a:hover,.nav a.active{background:#1d2927;color:#fff}.ico{width:18px;text-align:center;color:#80908b}.active .ico{color:#72a9a2}
+.bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
+.profile{display:flex;gap:10px;align-items:center;padding:10px}.avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}.profile strong{display:block;font-size:12px;color:#e6ecea}.profile small{display:block;color:#697571;font-size:10px;margin-top:2px}.signout{border:0;background:none;color:#899490;cursor:pointer;font-size:12px;padding:9px 10px}
+.content{margin-left:240px;padding:30px 34px 50px;max-width:1500px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.crumb{font-size:12px;color:#899590}
+.page-title{font:800 29px Manrope;letter-spacing:-1px;margin:0 0 6px}.page-sub{font-size:13px;color:#7b8683;margin:0}
+.settings-layout{display:grid;grid-template-columns:215px 1fr;gap:18px;margin-top:26px}
+.settings-nav,.panel{background:#fff;border:1px solid #e0e7e4;border-radius:14px}
+.settings-nav{padding:10px;align-self:start;position:sticky;top:24px}
+.settings-nav button{width:100%;border:0;background:none;text-align:left;padding:11px 12px;border-radius:9px;color:#64706d;font-size:12px;font-weight:600;cursor:pointer}
+.settings-nav button:hover,.settings-nav button.active{background:#e8f0ee;color:#1e5d56}
+.settings-nav .group{font-size:9px;text-transform:uppercase;letter-spacing:.9px;color:#9aa39f;font-weight:800;padding:14px 12px 7px}
+.settings-content{min-width:0}.section{display:none}.section.active{display:block}
+.panel{padding:24px;margin-bottom:14px}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #edf0ef;padding-bottom:17px;margin-bottom:20px}.panel-title{font:700 16px Manrope;margin:0}.panel-sub{font-size:11px;color:#899490;margin:5px 0 0;line-height:1.5}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:#53615d;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #dbe3e0;background:#fff;border-radius:9px;padding:10px 11px;font-size:12px;color:#17201e;outline:none}.field textarea{min-height:92px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#72a9a2;box-shadow:0 0 0 3px #e8f0ee}
+.savebar{display:flex;justify-content:flex-end;gap:9px;margin-top:4px}.btn{height:38px;border:1px solid #d9e1de;background:#fff;border-radius:9px;padding:0 14px;font-size:12px;font-weight:700;color:#42504c;cursor:pointer}.btn.primary{background:#1e5d56;color:#fff;border-color:#1e5d56}.btn:disabled{opacity:.55;cursor:default}
+.logo-upload{display:flex;align-items:center;gap:15px;padding:16px;border:1px dashed #cbd7d3;border-radius:11px}.logo-box{width:62px;height:62px;border-radius:11px;background:#14201e;color:#72a9a2;display:grid;place-items:center;font:800 20px Manrope}.logo-upload p{margin:0;font-size:11px;color:#7b8683;line-height:1.5}.logo-upload strong{display:block;color:#17201e;margin-bottom:3px}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #edf0ef}.toggle-row:last-child{border-bottom:0}.toggle-title{font-size:12px;font-weight:700}.toggle-sub{font-size:10px;color:#899490;margin-top:4px}.switch{position:relative;width:38px;height:21px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#d6dfdc;border-radius:20px;cursor:pointer}.slider:before{content:"";position:absolute;width:17px;height:17px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.18s}.switch input:checked+.slider{background:#1e5d56}.switch input:checked+.slider:before{transform:translateX(17px)}
+.role-table{width:100%;border-collapse:collapse;font-size:11px}.role-table th{text-align:left;color:#899490;font-size:9px;text-transform:uppercase;letter-spacing:.7px;padding:9px 8px;border-bottom:1px solid #e8eeeb}.role-table td{padding:12px 8px;border-bottom:1px solid #edf0ef}.badge{display:inline-flex;padding:4px 8px;border-radius:20px;background:#e8f0ee;color:#1e5d56;font-size:9px;font-weight:800}.placeholder{padding:25px;border:1px dashed #d5dfdc;border-radius:11px;text-align:center;color:#899490;font-size:11px;line-height:1.6}
+.danger{border-color:#eadbd8}.danger .panel-title{color:#9a4a3e}
+.notice{display:none;margin-bottom:14px;padding:11px 13px;border-radius:9px;font-size:11px;font-weight:600}.notice.show{display:block}.notice.success{background:#e8f0ee;color:#1e5d56}.notice.error{background:#f8ecea;color:#9a4a3e}
+@media(max-width:900px){.settings-layout{grid-template-columns:1fr}.settings-nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}.settings-nav .group{display:none}}
+@media(max-width:700px){.side{width:66px;padding:20px 8px}.logo{font-size:0;padding:0 10px 28px}.logo:first-letter{font-size:24px}.label,.nav a span,.profile div:not(.avatar),.signout{display:none}.nav a{justify-content:center;padding:0}.content{margin-left:66px;padding:20px 15px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.settings-nav{grid-template-columns:1fr 1fr}.page-title{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<a class="logo" href="insightvis_dashboard.html">INSIGHT<b>.</b></a>
+<div class="label">Workspace</div>
+<nav class="nav">
+<a href="insightvis_dashboard.html"><span class="ico">⌂</span><span>Dashboard</span></a>
+<a href="insightvis_products.html"><span class="ico">▦</span><span>Products</span></a>
+<a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
+<a href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
+<a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
+<a href="insightvis_projects.html"><span class="ico">⌑</span><span>Projects</span></a>
+<a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
+<a class="active" href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
+</nav>
+<div class="bottom">
+<div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Account</strong><small id="companyName">INSIGHT</small></div></div>
+<button class="signout" id="signout">Sign out</button>
+</div>
+</aside>
+
+<main class="content">
+<div class="top"><div class="crumb">Workspace / Settings</div></div>
+<h1 class="page-title">Settings</h1>
+<p class="page-sub">Manage your INSIGHT account, company and workspace.</p>
+
+<div class="settings-layout">
+<nav class="settings-nav">
+<div class="group">Account</div>
+<button class="active" data-section="profile">Profile</button>
+<button data-section="security">Security</button>
+<div class="group">Company</div>
+<button data-section="company">Company profile</button>
+<button data-section="branding">Branding</button>
+<button data-section="team">Team</button>
+<div class="group">Workspace</div>
+<button data-section="visualizer">Visualizer</button>
+<button data-section="leads">Leads</button>
+<button data-section="notifications">Notifications</button>
+<div class="group">Business</div>
+<button data-section="billing">Billing & Plan</button>
+</nav>
+
+<div class="settings-content">
+<div id="notice" class="notice"></div>
+
+<section class="section active" id="profile">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Profile</h2><p class="panel-sub">Your personal information and account details.</p></div></div>
+<div class="form-grid">
+<div class="field"><label>First name</label><input id="firstName"></div>
+<div class="field"><label>Last name</label><input id="lastName"></div>
+<div class="field"><label>Email</label><input id="email" type="email" disabled></div>
+<div class="field"><label>Role</label><input id="role" disabled></div>
+</div>
+<div class="savebar"><button class="btn primary" id="saveProfile">Save changes</button></div>
+</div>
+</section>
+
+<section class="section" id="company">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Company Profile</h2><p class="panel-sub">The business information associated with this INSIGHT workspace.</p></div></div>
+<div class="form-grid">
+<div class="field full"><label>Company name</label><input id="companyInput"></div>
+<div class="field"><label>Business type</label><select><option>Interior finishes retailer</option><option>Tile retailer</option><option>Flooring retailer</option><option>Bathroom retailer</option><option>Interior products retailer</option></select></div>
+<div class="field"><label>Country</label><input placeholder="Uganda"></div>
+<div class="field"><label>City</label><input placeholder="Kampala"></div>
+<div class="field"><label>Phone</label><input placeholder="+256 ..."></div>
+<div class="field"><label>Website</label><input placeholder="https://..."></div>
+<div class="field full"><label>Business address</label><textarea placeholder="Store / office address"></textarea></div>
+</div>
+<div class="savebar"><button class="btn primary" id="saveCompany">Save changes</button></div>
+</div>
+</section>
+
+<section class="section" id="branding">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Branding</h2><p class="panel-sub">Control how your retailer brand appears across customer-facing INSIGHT experiences.</p></div></div>
+<div class="logo-upload"><div class="logo-box" id="brandMark">IN</div><div><strong>Company logo</strong><p>Upload your retailer logo. PNG or SVG recommended.</p></div><button class="btn" style="margin-left:auto" disabled>Upload logo</button></div>
+<div class="form-grid" style="margin-top:18px">
+<div class="field"><label>Primary colour</label><input value="#1E5D56"></div>
+<div class="field"><label>Accent colour</label><input value="#72A9A2"></div>
+</div>
+<div class="savebar"><button class="btn primary">Save branding</button></div>
+</div>
+</section>
+
+<section class="section" id="team">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Team</h2><p class="panel-sub">Manage people who can access your retailer workspace.</p></div><button class="btn primary" disabled>Invite member</button></div>
+<div class="placeholder">Team invitations and role management will appear here.<br>Roles are structured around Owner, Admin, Sales and Viewer.</div>
+</div>
+</section>
+
+<section class="section" id="visualizer">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Visualizer</h2><p class="panel-sub">Default behaviour for your customer visualization experience.</p></div></div>
+<div class="toggle-row"><div><div class="toggle-title">Allow customers to switch materials</div><div class="toggle-sub">Customers can preview different products in a room.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div><div class="toggle-title">Show product information</div><div class="toggle-sub">Display product name and catalogue information in the customer experience.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div><div class="toggle-title">Allow sharing</div><div class="toggle-sub">Allow customers to share their visualization.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div><div class="toggle-title">Show retailer branding</div><div class="toggle-sub">Use your company identity in customer-facing experiences.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+</div>
+</section>
+
+<section class="section" id="leads">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Lead Settings</h2><p class="panel-sub">Control how enquiries generated through INSIGHT are handled.</p></div></div>
+<div class="toggle-row"><div><div class="toggle-title">New lead email notifications</div><div class="toggle-sub">Receive an email when a customer submits an enquiry.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div style="margin-top:20px"><label style="font-size:11px;color:#53615d;font-weight:700">Lead statuses</label><table class="role-table" style="margin-top:8px"><tr><th>Status</th><th>Purpose</th></tr><tr><td><span class="badge">New</span></td><td>New customer enquiry</td></tr><tr><td><span class="badge">Contacted</span></td><td>Sales team has contacted the customer</td></tr><tr><td><span class="badge">Quoted</span></td><td>A quotation has been provided</td></tr><tr><td><span class="badge">Converted</span></td><td>Customer became a sale</td></tr><tr><td><span class="badge">Lost</span></td><td>Enquiry did not convert</td></tr></table></div>
+</div>
+</section>
+
+<section class="section" id="notifications">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Notifications</h2><p class="panel-sub">Choose which workspace events should generate notifications.</p></div></div>
+<div class="toggle-row"><div><div class="toggle-title">New leads</div><div class="toggle-sub">Notify me when a customer submits an enquiry.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div><div class="toggle-title">Team activity</div><div class="toggle-sub">Notify me about important team account changes.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div><div class="toggle-title">Security alerts</div><div class="toggle-sub">Notify me about password and account security changes.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+</div>
+</section>
+
+<section class="section" id="security">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Security</h2><p class="panel-sub">Keep your INSIGHT account secure.</p></div></div>
+<div class="placeholder">Password management is handled through the INSIGHT account recovery flow.</div>
+<div class="savebar"><button class="btn" onclick="location.href='insightvis_forgot_password.html'">Reset password</button></div>
+</div>
+<div class="panel danger">
+<div class="panel-head"><div><h2 class="panel-title">Sign out</h2><p class="panel-sub">End your current INSIGHT session on this device.</p></div><button class="btn" id="securitySignout">Sign out</button></div>
+</div>
+</section>
+
+<section class="section" id="billing">
+<div class="panel">
+<div class="panel-head"><div><h2 class="panel-title">Billing & Plan</h2><p class="panel-sub">Your INSIGHT subscription and workspace usage.</p></div></div>
+<div class="placeholder">Plan, billing history, invoices, usage and payment details will appear here when billing is connected.</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+const SUPABASE_URL="https://yomrkurhyntlkhatngsh.supabase.co";
+const SUPABASE_KEY="sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL";
+const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+
+function showNotice(text,type){
+  const n=$("notice"); n.textContent=text; n.className="notice show "+type;
+  setTimeout(()=>n.className="notice",3500);
+}
+function initials(n){return (n||"IN").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
+
+document.querySelectorAll(".settings-nav button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".settings-nav button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    $(btn.dataset.section).classList.add("active");
+  });
+});
+
+async function init(){
+  $("signout").onclick=signOut;
+  $("securitySignout").onclick=signOut;
+
+  const {data,error}=await client.auth.getSession();
+  if(error || !data.session){
+    location.replace("insightvis_login.html");
+    return;
+  }
+
+  const user=data.session.user;
+  const meta=user.user_metadata||{};
+  const fallbackName=[meta.first_name,meta.last_name].filter(Boolean).join(" ") || user.email?.split("@")[0] || "Account";
+
+  $("userName").textContent=fallbackName;
+  $("companyName").textContent=meta.company_name||"INSIGHT";
+  $("avatar").textContent=initials(fallbackName);
+  $("email").value=user.email||"";
+  $("firstName").value=meta.first_name||"";
+  $("lastName").value=meta.last_name||"";
+  $("role").value="Owner";
+
+  const {data:profile}=await client.from("profiles")
+    .select("first_name,last_name,company_id,role")
+    .eq("id",user.id).maybeSingle();
+
+  if(profile){
+    $("firstName").value=profile.first_name||"";
+    $("lastName").value=profile.last_name||"";
+    $("role").value=profile.role||"Owner";
+
+    const {data:company}=await client.from("companies")
+      .select("name").eq("id",profile.company_id).maybeSingle();
+
+    if(company?.name){
+      $("companyInput").value=company.name;
+      $("companyName").textContent=company.name;
+    }
+  }
+}
+
+async function signOut(){
+  try{await client.auth.signOut()}finally{location.replace("insightvis_login.html")}
+}
+
+$("saveProfile").onclick=async()=>{
+  const {data:{session}}=await client.auth.getSession();
+  if(!session) return location.replace("insightvis_login.html");
+
+  const first=$("firstName").value.trim(), last=$("lastName").value.trim();
+  const {error}=await client.from("profiles").update({
+    first_name:first,last_name:last
+  }).eq("id",session.user.id);
+
+  if(error){showNotice(error.message,"error");return}
+
+  $("userName").textContent=[first,last].filter(Boolean).join(" ")||"Account";
+  $("avatar").textContent=initials([first,last].filter(Boolean).join(" "));
+  showNotice("Profile saved.","success");
+};
+
+$("saveCompany").onclick=async()=>{
+  const {data:{session}}=await client.auth.getSession();
+  if(!session) return location.replace("insightvis_login.html");
+
+  const {data:profile}=await client.from("profiles").select("company_id").eq("id",session.user.id).maybeSingle();
+  if(!profile?.company_id){showNotice("Company profile could not be found.","error");return}
+
+  const name=$("companyInput").value.trim();
+  if(!name){showNotice("Enter a company name.","error");return}
+
+  const {error}=await client.from("companies").update({name}).eq("id",profile.company_id);
+  if(error){showNotice(error.message,"error");return}
+
+  $("companyName").textContent=name;
+  showNotice("Company details saved.","success");
+};
+
+init();
+</script>
+</body>
+</html>
