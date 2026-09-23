@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INSIGHT — Brands</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#121816;
+  --muted:#6f7a76;
+  --line:#e2e7e5;
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --accent:#1e5d56;
+  --accent-hover:#164943;
+  --accent-soft:#e9f3f0;
+  --accent-light:#f3f8f7;
+  --danger:#a84338;
+  --danger-soft:#faeeec;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+button,select,input,textarea{font:inherit}
+
+.layout{min-height:100vh}
+
+/* Sidebar */
+.side{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:240px;
+  background:#111817;
+  color:#aeb8b5;
+  padding:24px 14px;
+  display:flex;
+  flex-direction:column;
+  z-index:90;
+}
+.side .logo{
+  font:800 24px Manrope;
+  color:#fff;
+  padding:0 12px 30px;
+  letter-spacing:-1px;
+  text-decoration:none;
+}
+.side .logo b{color:#75b7a9}
+.side .label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:#596461;
+  padding:0 12px 10px;
+}
+.side .nav{display:flex;flex-direction:column;gap:4px;flex:1}
+.side .nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#a2ada9;
+  font-weight:600;
+  font-size:14px;
+  transition:all .15s ease;
+}
+.side .nav a:hover{background:#1a2321;color:#fff}
+.side .nav a.active{background:#1e5d56;color:#fff}
+.side .nav a .ico{font-size:15px;width:18px;text-align:center}
+
+.side .bottom{
+  margin-top:auto;
+  border-top:1px solid #1f2a27;
+  padding-top:16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.side .profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:4px 8px;
+}
+.side .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#263431;
+  color:#a7dbd0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:700 12px Manrope;
+  border:1px solid #344844;
+}
+.side .profile strong{display:block;color:#f0f4f3;font-size:13px;line-height:1.2}
+.side .profile small{display:block;color:#71807c;font-size:11px}
+.side .signout{
+  border:1px solid #23312e;
+  background:transparent;
+  color:#95a39f;
+  padding:8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  transition:background .15s,color .15s;
+}
+.side .signout:hover{background:#1c2725;color:#fff}
+
+/* Main Area */
+.content{margin-left:240px;padding:32px 40px;max-width:1440px}
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+  gap:16px;
+}
+.crumb{
+  font-size:12px;
+  font-weight:600;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.top-actions{display:flex;align-items:center;gap:10px}
+.page-title{
+  font-family:Manrope;
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-.03em;
+  margin:0 0 6px;
+  color:var(--ink);
+}
+.page-sub{
+  margin:0 0 24px;
+  font-size:14px;
+  color:var(--muted);
+  max-width:680px;
+  line-height:1.5;
+}
+
+/* Common Buttons */
+.btn{
+  height:40px;
+  padding:0 16px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  transition:all .15s;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+}
+.btn:hover{background:#f8faf9;border-color:#cfd6d4}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.danger-soft{background:var(--danger-soft);border-color:#f0cfca;color:var(--danger)}
+.btn.danger-soft:hover{background:#f5dedb}
+
+/* KPI Stat Cards */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:24px;
+}
+.stat-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:0 2px 10px rgba(18,24,22,.03);
+}
+.stat-label{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.stat-val{
+  font-family:Manrope;
+  font-size:26px;
+  font-weight:800;
+  color:var(--ink);
+  line-height:1.1;
+}
+.stat-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+/* Toolbar */
+.toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:20px;
+}
+.search-input{
+  height:40px;
+  padding:0 14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  font-size:13px;
+  width:100%;
+  max-width:340px;
+  outline:none;
+}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(30,93,86,.08)}
+
+/* Card Grid for Brands */
+.brands-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+  gap:18px;
+}
+.brand-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:transform .15s, box-shadow .15s;
+  box-shadow:0 2px 8px rgba(18,24,22,.03);
+}
+.brand-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(18,24,22,.06);
+}
+.brand-header{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:14px;
+}
+.brand-badge{
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  background:var(--accent-light);
+  border:1px solid #d4e5e1;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:800 18px Manrope;
+  flex-shrink:0;
+  overflow:hidden;
+}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-title-wrap{flex:1;min-width:0}
+.brand-title{
+  font-family:Manrope;
+  font-size:17px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.brand-desc{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.45;
+  margin:0 0 16px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.brand-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:18px;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+  background:#f1f5f3;
+  color:#3b4945;
+}
+.pill.active{background:var(--accent-soft);color:var(--accent)}
+.brand-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid #f0f3f2;
+  padding-top:14px;
+  margin-top:auto;
+}
+.brand-actions{display:flex;gap:8px}
+
+/* Empty State */
+.empty-box{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  padding:50px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+.empty-box strong{
+  display:block;
+  font-family:Manrope;
+  font-size:18px;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.empty-box p{margin:0 0 16px;font-size:13px}
+
+/* Modals */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(12,18,16,.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:999;
+}
+.modal-backdrop.show{display:flex}
+.modal-card{
+  width:min(500px,100%);
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 24px 60px rgba(0,0,0,.2);
+  overflow:hidden;
+}
+.modal-head{
+  padding:20px 24px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.modal-head h3{margin:0;font-family:Manrope;font-size:18px;color:var(--ink)}
+.modal-close{
+  border:0;
+  background:transparent;
+  font-size:20px;
+  cursor:pointer;
+  color:var(--muted);
+}
+.modal-body{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:700;color:#475450}
+.field input, .field textarea{
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px 12px;
+  font-size:13px;
+  outline:none;
+}
+.field input:focus, .field textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(30,93,86,.08);
+}
+.modal-foot{
+  padding:16px 24px;
+  border-top:1px solid var(--line);
+  background:#fafbfb;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+/* Toast */
+.toast{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  background:#17221e;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+  display:none;
+  z-index:1000;
+}
+.toast.show{display:block}
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- Standard INSIGHT Sidebar -->
+  <aside class="side">
+    <a class="logo" href="insightvis_dashboard.html">INSIGHT<b>.</b></a>
+    <div class="label">Workspace</div>
+    <nav class="nav">
+      <a href="insightvis_dashboard.html"><span class="ico">⌂</span><span>Dashboard</span></a>
+      <a href="insightvis_products.html"><span class="ico">▦</span><span>Products</span></a>
+      <a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
+      <a class="active" href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
+      <a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
+      <a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
+      <a href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
+    </nav>
+    <div class="bottom">
+      <div class="profile">
+        <div class="avatar" id="avatar">--</div>
+        <div>
+          <strong id="userName">Loading…</strong>
+          <small id="companyName">Loading…</small>
+        </div>
+      </div>
+      <button class="signout" id="signout" type="button">Sign out</button>
+      <script>
+      (function(){
+        try{
+          var c=JSON.parse(localStorage.getItem("insight_user_account")||"null");
+          if(c){
+            var u=document.getElementById("userName"),co=document.getElementById("companyName"),a=document.getElementById("avatar");
+            if(u&&c.name) u.textContent=c.name;
+            if(co&&c.company) co.textContent=c.company;
+            if(a&&c.avatar) a.textContent=c.avatar;
+          }
+        }catch(_){}
+      })();
+      </script>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="top">
+      <div class="crumb">Workspace / Catalogue / Brands</div>
+      <div class="top-actions">
+        <button class="btn" onclick="location.href='insightvis_products.html'" type="button">
+          Manage Products →
+        </button>
+        <button class="btn primary" id="addBrandBtn" type="button">
+          <span>+</span> Add Brand
+        </button>
+      </div>
+    </div>
+
+    <h1 class="page-title">Brands & Manufacturers</h1>
+    <p class="page-sub">Manage your partner brands, surface manufacturers, and artisan producers in sync with your catalogue products and collections.</p>
+
+    <!-- Overview Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Brands</div>
+        <div class="stat-val" id="statTotal">0</div>
+        <div class="stat-sub">Partners in workspace</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Catalogued Products</div>
+        <div class="stat-val" id="statProducts">0</div>
+        <div class="stat-sub">Assigned to brands</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Collections</div>
+        <div class="stat-val" id="statCollections">0</div>
+        <div class="stat-sub">Linked series</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Brands</div>
+        <div class="stat-val" id="statActive">0</div>
+        <div class="stat-sub">With live products</div>
+      </div>
+    </div>
+
+    <!-- Search Toolbar -->
+    <div class="toolbar">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search brands by name or description…">
+      <div style="font-size:13px;color:var(--muted);font-weight:600" id="brandCountLabel">0 brands</div>
+    </div>
+
+    <!-- Brands Grid -->
+    <div class="brands-grid" id="brandsGrid">
+      <div class="empty-box">
+        <strong>Loading brands…</strong>
+        <p>Connecting to your catalogue workspace.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add / Edit Brand Modal -->
+<div class="modal-backdrop" id="brandModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modalTitle">Add Brand</h3>
+      <button class="modal-close" id="closeModalBtn" type="button">×</button>
+    </div>
+    <form id="brandForm">
+      <div class="modal-body">
+        <div class="field">
+          <label>Brand Name *</label>
+          <input type="text" id="brandNameInput" required placeholder="e.g. Marazzi, Porcelanosa, Caesarstone">
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea id="brandDescInput" rows="3" placeholder="Brief background, origin, or material specialism…"></textarea>
+        </div>
+        <div class="field">
+          <label>Logo or Emblem URL</label>
+          <input type="url" id="brandLogoInput" placeholder="https://example.com/logo.png (optional)">
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" id="cancelModalBtn" type="button">Cancel</button>
+        <button class="btn primary" id="saveBrandBtn" type="submit">Save Brand</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast">Brand saved successfully</div>
+
+<script>
+const SUPABASE_URL = "https://yomrkurhyntlkhatngsh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL";
+
+let client = null;
+if (window.supabase) {
+  client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
+
+const $ = id => document.getElementById(id);
+let companyId = null;
+let allBrands = [];
+let allProducts = [];
+let allCollections = [];
+let editingBrandId = null;
+
+function esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function toast(msg){
+  const el = $("toast");
+  if(!el) return;
+  el.textContent = msg;
+  el.className = "toast show";
+  setTimeout(() => el.className = "toast", 2800);
+}
+
+function getInitials(name){
+  const clean = String(name || "B").trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if(!parts.length) return "B";
+  return parts.slice(0, 2).map(p => p[0]).join("").toUpperCase();
+}
+
+function syncSidebar(name, company, email){
+  const cleanName = (name || "Account").trim();
+  const cleanCompany = (company || "INSIGHT").trim();
+  const av = getInitials(cleanName);
+  if($("userName")) $("userName").textContent = cleanName;
+  if($("companyName")) $("companyName").textContent = cleanCompany;
+  if($("avatar")) $("avatar").textContent = av;
+  try{
+    localStorage.setItem("insight_user_account", JSON.stringify({
+      name: cleanName,
+      company: cleanCompany,
+      email: email || "",
+      avatar: av
+    }));
+  }catch(_){}
+}
+
+async function handleSignOut(){
+  const btn = $("signout");
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = "Signing out…";
+  }
+  try{
+    localStorage.removeItem("insight_user_account");
+    sessionStorage.clear();
+  }catch(_){}
+  try{
+    if(client && client.auth) await client.auth.signOut();
+  }catch(e){
+    console.warn("Signout error:", e);
+  }finally{
+    window.location.replace("insightvis_login.html");
+  }
+}
+
+// Storage helpers
+function getBrandsStorageKey(){
+  return "insight_brands_" + (companyId || "default");
+}
+
+function loadLocalBrands(){
+  try{
+    const raw = localStorage.getItem(getBrandsStorageKey()) || localStorage.getItem("insight_brands");
+    if(raw) return JSON.parse(raw);
+  }catch(_){}
+  return [];
+}
+
+function saveLocalBrands(list){
+  try{
+    const json = JSON.stringify(list);
+    localStorage.setItem(getBrandsStorageKey(), json);
+    localStorage.setItem("insight_brands", json);
+  }catch(_){}
+}
+
+function updateStats(){
+  const total = allBrands.length;
+  $("statTotal").textContent = total;
+  
+  // Count linked products
+  const productCount = allProducts.filter(p => p.brand_id).length;
+  $("statProducts").textContent = productCount;
+
+  // Count collections
+  $("statCollections").textContent = allCollections.length;
+
+  // Active brands (brands with at least one product)
+  const brandsWithProducts = new Set(allProducts.map(p => p.brand_id).filter(Boolean));
+  const activeCount = allBrands.filter(b => brandsWithProducts.has(b.id)).length;
+  $("statActive").textContent = activeCount;
+}
+
+function renderBrands(){
+  const grid = $("brandsGrid");
+  if(!grid) return;
+
+  const query = ($("searchInput").value || "").toLowerCase().trim();
+  const filtered = allBrands.filter(b => 
+    !query || 
+    (b.name || "").toLowerCase().includes(query) || 
+    (b.description || "").toLowerCase().includes(query)
+  );
+
+  $("brandCountLabel").textContent = `${filtered.length} brand${filtered.length === 1 ? '' : 's'}`;
+
+  if(!filtered.length){
+    grid.innerHTML = `
+      <div class="empty-box">
+        <strong>${allBrands.length ? "No brands match your search" : "No brands added yet"}</strong>
+        <p>${allBrands.length ? "Try clearing your search query to see all brand partners." : "Create your first brand partner to organize products and collections."}</p>
+        <button class="btn primary" onclick="openAddModal()" type="button">+ Add Brand</button>
+      </div>`;
+    return;
+  }
+
+  // Count products and collections per brand
+  const prodMap = {};
+  allProducts.forEach(p => {
+    if(p.brand_id) prodMap[p.brand_id] = (prodMap[p.brand_id] || 0) + 1;
+  });
+
+  const colMap = {};
+  allCollections.forEach(c => {
+    if(c.brand_id) colMap[c.brand_id] = (colMap[c.brand_id] || 0) + 1;
+  });
+
+  grid.innerHTML = filtered.map(b => {
+    const pCount = prodMap[b.id] || 0;
+    const cCount = colMap[b.id] || 0;
+    const initials = getInitials(b.name);
+
+    return `
+      <div class="brand-card" data-id="${esc(b.id)}">
+        <div>
+          <div class="brand-header">
+            <div class="brand-badge">
+              ${b.logo_url ? `<img src="${esc(b.logo_url)}" alt="${esc(b.name)}">` : initials}
+            </div>
+            <div class="brand-title-wrap">
+              <h3 class="brand-title" title="${esc(b.name)}">${esc(b.name)}</h3>
+              <div style="font-size:12px;color:var(--muted)">Partner Brand</div>
+            </div>
+          </div>
+          <p class="brand-desc">${esc(b.description || "No description provided.")}</p>
+          <div class="brand-pills">
+            <span class="pill ${pCount > 0 ? 'active' : ''}">
+              ▦ ${pCount} ${pCount === 1 ? 'Product' : 'Products'}
+            </span>
+            <span class="pill">
+              ◈ ${cCount} ${cCount === 1 ? 'Collection' : 'Collections'}
+            </span>
+          </div>
+        </div>
+        <div class="brand-foot">
+          <a href="insightvis_products.html?brand=${encodeURIComponent(b.id)}" class="btn" style="font-size:12px;padding:0 12px;height:34px">
+            View Products →
+          </a>
+          <div class="brand-actions">
+            <button class="btn" onclick="openEditModal('${esc(b.id)}')" type="button" style="font-size:12px;padding:0 10px;height:34px">Edit</button>
+            <button class="btn danger-soft" onclick="deleteBrand('${esc(b.id)}')" type="button" style="font-size:12px;padding:0 10px;height:34px">Delete</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openAddModal(){
+  editingBrandId = null;
+  $("modalTitle").textContent = "Add Brand";
+  $("brandForm").reset();
+  $("brandModal").classList.add("show");
+  $("brandNameInput").focus();
+}
+
+function openEditModal(brandId){
+  const brand = allBrands.find(b => b.id === brandId);
+  if(!brand) return;
+  editingBrandId = brandId;
+  $("modalTitle").textContent = "Edit Brand";
+  $("brandNameInput").value = brand.name || "";
+  $("brandDescInput").value = brand.description || "";
+  $("brandLogoInput").value = brand.logo_url || "";
+  $("brandModal").classList.add("show");
+  $("brandNameInput").focus();
+}
+
+function closeModal(){
+  $("brandModal").classList.remove("show");
+  editingBrandId = null;
+}
+
+async function handleBrandSubmit(e){
+  e.preventDefault();
+  const name = $("brandNameInput").value.trim();
+  const desc = $("brandDescInput").value.trim() || null;
+  const logo = $("brandLogoInput").value.trim() || null;
+
+  if(!name){
+    toast("Brand name is required");
+    return;
+  }
+
+  const saveBtn = $("saveBrandBtn");
+  saveBtn.disabled = true;
+  saveBtn.textContent = "Saving…";
+
+  try{
+    if(editingBrandId){
+      // Update existing
+      if(client && companyId){
+        const { error } = await client.from("brands").update({
+          name,
+          description: desc,
+          logo_url: logo,
+          updated_at: new Date().toISOString()
+        }).eq("id", editingBrandId);
+        if(error) throw error;
+      }
+      const item = allBrands.find(b => b.id === editingBrandId);
+      if(item){
+        item.name = name;
+        item.description = desc;
+        item.logo_url = logo;
+      }
+      toast("Brand updated successfully");
+    }else{
+      // Create new
+      const newId = "brand_" + Math.random().toString(36).substring(2, 10);
+      let insertedBrand = {
+        id: newId,
+        company_id: companyId,
+        name,
+        description: desc,
+        logo_url: logo,
+        created_at: new Date().toISOString()
+      };
+
+      if(client && companyId){
+        const { data, error } = await client.from("brands").insert({
+          company_id: companyId,
+          name,
+          description: desc,
+          logo_url: logo
+        }).select().maybeSingle();
+
+        if(!error && data) insertedBrand = data;
+      }
+
+      allBrands.unshift(insertedBrand);
+      toast("Brand added to catalogue");
+    }
+
+    saveLocalBrands(allBrands);
+    updateStats();
+    renderBrands();
+    closeModal();
+  }catch(err){
+    console.error("Brand save error:", err);
+    toast("Error saving brand: " + (err.message || "Please try again"));
+  }finally{
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Brand";
+  }
+}
+
+async function deleteBrand(brandId){
+  const brand = allBrands.find(b => b.id === brandId);
+  if(!brand) return;
+
+  const linkedProducts = allProducts.filter(p => p.brand_id === brandId).length;
+  const msg = linkedProducts > 0 
+    ? `Brand "${brand.name}" has ${linkedProducts} associated product(s). Are you sure you want to delete it?`
+    : `Are you sure you want to delete brand "${brand.name}"?`;
+
+  if(!confirm(msg)) return;
+
+  try{
+    if(client && companyId){
+      const { error } = await client.from("brands").delete().eq("id", brandId);
+      if(error) console.warn("Supabase brand delete:", error.message);
+    }
+    allBrands = allBrands.filter(b => b.id !== brandId);
+    saveLocalBrands(allBrands);
+    updateStats();
+    renderBrands();
+    toast("Brand deleted");
+  }catch(err){
+    console.error("Delete error:", err);
+    toast("Could not delete brand");
+  }
+}
+
+// Initialization
+async function init(){
+  $("signout").onclick = handleSignOut;
+  $("addBrandBtn").onclick = openAddModal;
+  $("closeModalBtn").onclick = closeModal;
+  $("cancelModalBtn").onclick = closeModal;
+  $("brandForm").onsubmit = handleBrandSubmit;
+  $("searchInput").oninput = renderBrands;
+  $("brandModal").onclick = e => { if(e.target === $("brandModal")) closeModal(); };
+
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape") closeModal();
+  });
+
+  if(!client){
+    allBrands = loadLocalBrands();
+    renderBrands();
+    updateStats();
+    return;
+  }
+
+  let localAccount = null;
+  try{
+    localAccount = JSON.parse(localStorage.getItem("insight_user_account") || "null");
+  }catch(_){}
+
+  try{
+    const { data: sessionData } = await client.auth.getSession();
+    const session = sessionData?.session;
+
+    if(!session && (!localAccount || !localAccount.email)){
+      try{ localStorage.removeItem("insight_user_account"); }catch(_){}
+      window.location.replace("insightvis_login.html");
+      return;
+    }
+
+    const user = session?.user;
+    const meta = user?.user_metadata || {};
+    const fallbackName = [meta.first_name, meta.last_name].filter(Boolean).join(" ") || localAccount?.name || user?.email?.split("@")[0] || "Account";
+    const fallbackCompany = meta.company_name || meta.company || localAccount?.company || "INSIGHT";
+    syncSidebar(fallbackName, fallbackCompany, user?.email || localAccount?.email || "");
+
+    let profile = null;
+    if(user?.id){
+      const { data: p } = await client
+        .from("profiles")
+        .select("first_name,last_name,company_id,companies(name)")
+        .eq("id", user.id)
+        .maybeSingle();
+      profile = p;
+    }
+
+    if(profile){
+      const pName = [profile.first_name, profile.last_name].filter(Boolean).join(" ").trim() || fallbackName;
+      const cName = profile.companies?.name || fallbackCompany;
+      companyId = profile.company_id || localAccount?.company_id;
+      syncSidebar(pName, cName, user?.email || localAccount?.email || "");
+    }else{
+      companyId = localAccount?.company_id || null;
+    }
+
+    // Load brands, products and collections in parallel
+    const [brandsRes, prodsRes, colsRes] = await Promise.allSettled([
+      client.from("brands").select("id,name,description,logo_url,created_at").order("name"),
+      client.from("products").select("id,brand_id,name,status"),
+      client.from("collections").select("id,brand_id,name")
+    ]);
+
+    if(brandsRes.status === "fulfilled" && brandsRes.value.data && brandsRes.value.data.length > 0){
+      allBrands = brandsRes.value.data;
+      saveLocalBrands(allBrands);
+    }else{
+      allBrands = loadLocalBrands();
+    }
+
+    if(prodsRes.status === "fulfilled" && prodsRes.value.data){
+      allProducts = prodsRes.value.data;
+    }
+
+    if(colsRes.status === "fulfilled" && colsRes.value.data){
+      allCollections = colsRes.value.data;
+    }
+
+    updateStats();
+    renderBrands();
+  }catch(err){
+    console.warn("INSIGHT Brands init warning:", err);
+    allBrands = loadLocalBrands();
+    renderBrands();
+    updateStats();
+  }
+}
+
+window.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

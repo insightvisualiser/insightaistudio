@@ -16,7 +16,7 @@
 .side .logo b{color:#75b7a9}
 .side .label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
 .side .nav{display:grid;gap:3px;flex:0 0 auto;overflow:visible}
-.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none}
+.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none;margin:2px 0}
 .side .nav a:hover,.side .nav a.active{background:#1d2927;color:#fff}
 .side .nav a.active{box-shadow:inset 3px 0 0 #75b7a9}
 .side .ico{width:18px;text-align:center;color:#80908b}
@@ -26,10 +26,11 @@
 .side .avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}
 .side .profile strong{display:block;font-size:12px;color:#e6ecea}
 .side .profile small{display:block;color:#697571;font-size:10px;margin-top:2px}
-.side .signout{border:0;background:none;color:#899490;cursor:pointer;font-size:12px;padding:9px 10px}
+.side .signout{border:0;background:none;color:#899490;cursor:pointer;font:inherit;font-size:12px;padding:9px 10px}
 .content{margin-left:240px;padding:30px 34px 45px;max-width:1500px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.crumb{font-size:12px;color:#899590}.actions{display:flex;gap:9px}.btn{height:38px;border:1px solid #d9e1de;background:#fff;border-radius:9px;padding:0 14px;font-size:12px;font-weight:700;color:#42504c;cursor:pointer}.btn.primary{background:#1e5d56;color:#fff;border-color:#1e5d56}.hero{background:#14201e;color:#fff;border-radius:17px;padding:28px 29px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;margin-bottom:24px}.hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #ffffff0d;border-radius:50%;right:-130px;top:-140px}.hero h1{position:relative;z-index:1;font:800 29px Manrope;margin:0 0 7px;letter-spacing:-1px}.hero p{position:relative;z-index:1;color:#a4b0ad;font-size:13px;margin:0}.hero .btn{position:relative;z-index:1;background:#72a9a2;border:0;color:#10201d}.title{font:800 18px Manrope;letter-spacing:-.5px;margin:0 0 13px}.quick,.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.quick{margin-bottom:27px}.quick-card,.kpi,.card{background:#fff;border:1px solid #e0e7e4;border-radius:13px}.quick-card{padding:17px;min-height:140px;display:flex;flex-direction:column}.qicon{width:34px;height:34px;border-radius:9px;background:#e8f0ee;color:#1e5d56;display:grid;place-items:center;font-weight:800;margin-bottom:12px}.tag{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:#899490;font-weight:800}.quick-card h3{font:700 14px Manrope;margin:4px 0}.quick-card p{font-size:11px;color:#7b8683;line-height:1.45;margin:0}.quick-card a{margin-top:auto;padding-top:12px;color:#1e5d56;font-size:11px;font-weight:800}.kpi{padding:18px;margin-bottom:27px}.klabel{font-size:11px;color:#7a8582}.value{font:800 26px Manrope;letter-spacing:-1px;margin:8px 0 3px}.hint{font-size:10px;color:#1e5d56;font-weight:700}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.select{height:36px;background:#fff;border:1px solid #dbe3e0;border-radius:8px;padding:0 11px;font-size:11px;color:#53615d}.overview{display:grid;grid-template-columns:1.5fr .8fr;gap:13px;margin-bottom:27px}.card{padding:20px}.ctitle{font:700 14px Manrope}.sub{font-size:10px;color:#899490;margin-top:4px}.chart{height:180px;margin-top:20px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #e4e9e7;padding:0 4px;position:relative;overflow:visible}.bar{align-self:flex-end}.bar{flex:1;background:#d8e5e2;border-radius:5px 5px 0 0;position:relative;min-height:18px}.bar:nth-child(2),.bar:nth-child(5),.bar:nth-child(6){background:#1e5d56}.bar span{position:absolute;bottom:-19px;left:50%;transform:translateX(-50%);font-size:9px;color:#899490}.snap{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #edf0ef;font-size:11px;color:#6c7874}.snap:last-child{border:0}.snap strong{font:800 14px Manrope;color:#17201e}.activity{display:grid;grid-template-columns:1.35fr .65fr;gap:13px}.item{display:flex;gap:11px;padding:14px 0;border-bottom:1px solid #edf0ef}.item:last-child{border:0}.dot{width:8px;height:8px;border-radius:50%;background:#1e5d56;margin-top:5px}.item strong{font-size:11px}.item small{display:block;color:#909a97;font-size:10px;margin-top:4px;line-height:1.45}
 @media(max-width:1050px){.quick,.kpis{grid-template-columns:repeat(2,1fr)}.overview,.activity{grid-template-columns:1fr}}
-@media(max-width:700px){.side{width:66px;padding:20px 8px}.side .logo{font-size:0;padding:0 10px 28px}.side .logo:first-letter{font-size:24px}.side .label,.side .nav a span:not(.ico),.side .profile div:not(.avatar),.side .signout{display:none}.side .nav a{justify-content:center;padding:0}.content{margin-left:66px;padding:20px 15px}.top{align-items:flex-start}.actions .btn:first-child{display:none}.hero{flex-direction:column;align-items:flex-start;gap:18px}.quick,.kpis{grid-template-columns:1fr}}
+@media(max-width:900px){.side{width:66px;padding:20px 8px}.side .logo{font-size:0;padding:0 10px 28px}.side .logo:first-letter{font-size:24px}.side .label,.side .nav a span:not(.ico),.side .profile div:not(.avatar),.side .signout{display:none}.side .nav a{justify-content:center;padding:0}.content{margin-left:66px;padding:22px 18px}}
+@media(max-width:700px){.content{margin-left:66px;padding:20px 15px}.top{align-items:flex-start}.actions .btn:first-child{display:none}.hero{flex-direction:column;align-items:flex-start;gap:18px}.quick,.kpis{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -43,13 +44,25 @@
 <a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
 <a href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
 <a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
-<a href="insightvis_projects.html"><span class="ico">⌑</span><span>Projects</span></a>
 <a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
 <a href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
 </nav>
 <div class="bottom">
 <div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Loading…</strong><small id="companyName">Loading…</small></div></div>
-<button class="signout" id="signout">Sign out</button>
+<button class="signout" id="signout" type="button">Sign out</button>
+<script>
+(function(){
+  try{
+    var c=JSON.parse(localStorage.getItem("insight_user_account")||"null");
+    if(c){
+      var u=document.getElementById("userName"),co=document.getElementById("companyName"),a=document.getElementById("avatar");
+      if(u&&c.name) u.textContent=c.name;
+      if(co&&c.company) co.textContent=c.company;
+      if(a&&c.avatar) a.textContent=c.avatar;
+    }
+  }catch(_){}
+})();
+</script>
 </div>
 </aside>
 
@@ -79,7 +92,7 @@
 <div class="sectionhead"><h2 class="title" style="margin:0">Business Overview</h2><select class="select"><option>Last 6 months</option><option>Last 1 month</option><option>Last 3 months</option><option>Last 12 months</option></select></div>
 <div class="overview">
 <div class="card"><div class="ctitle">Visualizations</div><div class="sub">Customer visualization sessions</div><div class="chart"><div class="bar" style="height:34%"><span>Apr</span></div><div class="bar" style="height:47%"><span>May</span></div><div class="bar" style="height:43%"><span>Jun</span></div><div class="bar" style="height:61%"><span>Jul</span></div><div class="bar" style="height:78%"><span>Aug</span></div><div class="bar" style="height:90%"><span>Sep</span></div></div></div>
-<div class="card"><div class="ctitle">Catalogue Snapshot</div><div class="sub">Current workspace</div><div class="snap"><span>Products</span><strong id="sp">—</strong></div><div class="snap"><span>Rooms</span><strong id="sr">—</strong></div><div class="snap"><span>Brands</span><strong id="sb">—</strong></div><div class="snap"><span>Collections</span><strong id="sc">—</strong></div></div>
+<div class="card"><div class="ctitle">Catalogue Snapshot</div><div class="sub">Current workspace</div><a class="snap" href="insightvis_products.html" style="text-decoration:none;color:inherit;cursor:pointer"><span>Products</span><strong id="sp">—</strong></a><a class="snap" href="insightvis_rooms.html" style="text-decoration:none;color:inherit;cursor:pointer"><span>Rooms</span><strong id="sr">—</strong></a><a class="snap" href="insightvis_brands.html" style="text-decoration:none;color:inherit;cursor:pointer"><span>Brands</span><strong id="sb">—</strong></a><a class="snap" href="insightvis_collections.html" style="text-decoration:none;color:inherit;cursor:pointer"><span>Collections</span><strong id="sc">—</strong></a></div>
 </div>
 
 <div class="activity">
@@ -100,7 +113,9 @@ const SUPABASE_KEY="sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL";
 const $=id=>document.getElementById(id);
 
 function initials(n){
-  return (n||"U").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase();
+  const parts=String(n||"IN").trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return "IN";
+  return parts.slice(0,2).map(x=>x[0]).join("").toUpperCase() || "IN";
 }
 
 function greeting(){
@@ -109,12 +124,23 @@ function greeting(){
 }
 
 function setAccount(name,email,company){
-  $("userName").textContent=name||"Account";
-  $("companyName").textContent=company||"INSIGHT";
-  $("avatar").textContent=initials(name||"IN");
-  $("accountName").textContent=name||"Account";
-  $("accountEmail").textContent=email||"";
-  $("greeting").textContent=greeting()+", "+(name||"there")+".";
+  const cleanName = (name||"Account").trim();
+  const cleanCompany = (company||"INSIGHT").trim();
+  const av = initials(cleanName);
+  if($("userName")) $("userName").textContent=cleanName;
+  if($("companyName")) $("companyName").textContent=cleanCompany;
+  if($("avatar")) $("avatar").textContent=av;
+  if($("accountName")) $("accountName").textContent=cleanName;
+  if($("accountEmail")) $("accountEmail").textContent=email||"";
+  if($("greeting")) $("greeting").textContent=greeting()+", "+cleanName+".";
+  try{
+    localStorage.setItem("insight_user_account", JSON.stringify({
+      name: cleanName,
+      company: cleanCompany,
+      email: email||"",
+      avatar: av
+    }));
+  }catch(_){}
 }
 
 function setKPIs(p,r,b,c,v,l){
@@ -139,20 +165,39 @@ async function countRows(client,table,companyId,field,value){
   return result.count||0;
 }
 
-async function initDashboard(){
-  // Wire sign-out first so it works even if any later database request fails.
-  $("signout").onclick=async function(){
-    const button=$("signout");
+async function handleSignOut(){
+  const button=$("signout");
+  if(button){
     button.disabled=true;
     button.textContent="Signing out…";
-    try{
-      if(window.__insightSupabase){
-        await window.__insightSupabase.auth.signOut();
-      }
-    }finally{
-      window.location.replace("insightvis_login.html");
+  }
+  try{
+    localStorage.removeItem("insight_user_account");
+    sessionStorage.clear();
+  }catch(_){}
+  try{
+    if(window.__insightSupabase){
+      await window.__insightSupabase.auth.signOut();
+    }else if(window.supabase){
+      const c=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+      await c.auth.signOut();
     }
-  };
+  }catch(err){
+    console.warn("INSIGHT signout error:", err);
+  }finally{
+    window.location.replace("insightvis_login.html");
+  }
+}
+
+async function initDashboard(){
+  // Wire sign-out first so it works even if any later database request fails.
+  if($("signout")) $("signout").onclick=handleSignOut;
+  document.addEventListener("click",function(e){
+    if(e.target && e.target.closest("#signout")){
+      e.preventDefault();
+      handleSignOut();
+    }
+  });
 
   // If the CDN is slow, wait briefly instead of failing at page startup.
   let attempts=0;
@@ -175,66 +220,253 @@ async function initDashboard(){
     const sessionResult=await client.auth.getSession();
     const session=sessionResult.data?.session;
 
-    if(!session){
+    let localAccount=null;
+    try{
+      localAccount=JSON.parse(localStorage.getItem("insight_user_account")||"null");
+    }catch(_){}
+
+    if(!session && (!localAccount || !localAccount.email)){
+      try{ localStorage.removeItem("insight_user_account"); }catch(_){}
       window.location.replace("insightvis_login.html");
       return;
     }
 
-    const user=session.user;
-    const metadata=user.user_metadata||{};
+    const user=session?.user;
+    const metadata=user?.user_metadata||{};
 
-    // Populate immediately from Auth metadata so the dashboard never waits
-    // for the profile/company queries before showing the signed-in account.
+    // Populate immediately from Auth metadata or local account
     const fallbackName=[metadata.first_name,metadata.last_name]
-      .filter(Boolean).join(" ") || user.email?.split("@")[0] || "Account";
-    setAccount(fallbackName,user.email||"",metadata.company_name||"Your company");
+      .filter(Boolean).join(" ") || localAccount?.name || user?.email?.split("@")[0] || "Account";
+    const fallbackCompany=metadata.company_name||metadata.company||localAccount?.company||"INSIGHT";
+    setAccount(fallbackName,user?.email||localAccount?.email||"",fallbackCompany);
 
-    // Fetch the user's profile.
-    const profileResult=await client
-      .from("profiles")
-      .select("first_name,last_name,company_id")
-      .eq("id",user.id)
-      .maybeSingle();
+    // Fetch the user's profile if user ID exists
+    let profile=null;
+    if(user?.id){
+      const profileResult=await client
+        .from("profiles")
+        .select("first_name,last_name,company_id")
+        .eq("id",user.id)
+        .maybeSingle();
 
-    if(profileResult.error){
-      console.warn("INSIGHT profile:",profileResult.error.message);
+      if(profileResult.error){
+        console.warn("INSIGHT profile:",profileResult.error.message);
+      }
+      profile=profileResult.data;
     }
 
-    const profile=profileResult.data;
+    let activeCompanyId = profile?.company_id || localAccount?.company_id;
 
-    if(!profile || !profile.company_id){
-      // Auth account is valid even if the profile row is temporarily unavailable.
-      setKPIs("0","0","0","0","0","0");
-      return;
+    if(!activeCompanyId && client){
+      try{
+        const { data: firstCo } = await client.from("companies").select("id,name").limit(1).maybeSingle();
+        if(firstCo?.id){
+          activeCompanyId = firstCo.id;
+          if(!fallbackCompany || fallbackCompany === "INSIGHT") fallbackCompany = firstCo.name;
+        }
+      }catch(_){}
     }
 
-    const name=[profile.first_name,profile.last_name]
-      .filter(Boolean).join(" ") || fallbackName;
+    const name=[profile?.first_name,profile?.last_name]
+      .filter(Boolean).join(" ").trim() || fallbackName;
 
-    let company=metadata.company_name||"Your company";
+    let company=fallbackCompany;
 
-    const companyResult=await client
-      .from("companies")
-      .select("name")
-      .eq("id",profile.company_id)
-      .maybeSingle();
+    if(activeCompanyId){
+      const companyResult=await client
+        .from("companies")
+        .select("name")
+        .eq("id",activeCompanyId)
+        .maybeSingle();
 
-    if(!companyResult.error && companyResult.data?.name){
-      company=companyResult.data.name;
+      if(!companyResult.error && companyResult.data?.name){
+        company=companyResult.data.name;
+      }
     }
 
-    setAccount(name,user.email||"",company);
+    setAccount(name,user?.email||localAccount?.email||"",company);
 
-    const c=profile.company_id;
+    const c=activeCompanyId;
+
+    // Room count resolver (checks Supabase active rooms table + all local storage active rooms keys)
+    async function getRoomCount(){
+      let dbCount = 0;
+      try{
+        if(c){
+          const { count, error } = await client.from("rooms")
+            .select("id", { count: "exact", head: true })
+            .eq("company_id", c)
+            .eq("status", "active");
+          if(!error && typeof count === "number") dbCount = count;
+        }
+        if(dbCount === 0){
+          const { count: anyCount, error: anyErr } = await client.from("rooms")
+            .select("id", { count: "exact", head: true })
+            .eq("status", "active");
+          if(!anyErr && typeof anyCount === "number" && anyCount > 0) dbCount = anyCount;
+        }
+      }catch(_){}
+
+      let localCount = 0;
+      try{
+        for(let i = 0; i < localStorage.length; i++){
+          const key = localStorage.key(i);
+          if(key && key.startsWith("insight_active_rooms")){
+            if(key === "insight_active_rooms_count"){
+              const cVal = parseInt(localStorage.getItem(key), 10);
+              if(!isNaN(cVal) && cVal > localCount) localCount = cVal;
+            }else{
+              try{
+                const raw = localStorage.getItem(key);
+                if(raw){
+                  const list = JSON.parse(raw);
+                  if(Array.isArray(list)){
+                    const act = list.filter(r => r.status === "active" || !r.status).length;
+                    if(act > localCount) localCount = act;
+                  }
+                }
+              }catch(_){}
+            }
+          }
+        }
+      }catch(_){}
+
+      return Math.max(dbCount, localCount);
+    }
+
+    // Product count resolver (published or active non-archived products)
+    async function getProductCount(){
+      let dbCount = 0;
+      try{
+        if(c){
+          const { count, error } = await client.from("products")
+            .select("id", { count: "exact", head: true })
+            .eq("company_id", c)
+            .neq("status", "archived");
+          if(!error && typeof count === "number") dbCount = count;
+        }
+        if(dbCount === 0){
+          const { count: anyCount, error: anyErr } = await client.from("products")
+            .select("id", { count: "exact", head: true })
+            .neq("status", "archived");
+          if(!anyErr && typeof anyCount === "number" && anyCount > 0) dbCount = anyCount;
+        }
+      }catch(_){}
+
+      let localCount = 0;
+      try{
+        for(let i = 0; i < localStorage.length; i++){
+          const key = localStorage.key(i);
+          if(key && key.startsWith("insight_products")){
+            try{
+              const raw = localStorage.getItem(key);
+              if(raw){
+                const arr = JSON.parse(raw);
+                if(Array.isArray(arr) && arr.length > localCount) localCount = arr.length;
+              }
+            }catch(_){}
+          }
+        }
+      }catch(_){}
+
+      return Math.max(dbCount, localCount);
+    }
+
+    // Brand count resolver
+    async function getBrandCount(){
+      let dbCount = 0;
+      try{
+        if(c){
+          const { count, error } = await client.from("brands")
+            .select("id", { count: "exact", head: true })
+            .eq("company_id", c);
+          if(!error && typeof count === "number") dbCount = count;
+        }
+        if(dbCount === 0){
+          const { count: anyCount, error: anyErr } = await client.from("brands")
+            .select("id", { count: "exact", head: true });
+          if(!anyErr && typeof anyCount === "number" && anyCount > 0) dbCount = anyCount;
+        }
+      }catch(_){}
+
+      let localCount = 0;
+      try{
+        for(let i = 0; i < localStorage.length; i++){
+          const key = localStorage.key(i);
+          if(key && key.startsWith("insight_brands")){
+            try{
+              const raw = localStorage.getItem(key);
+              if(raw){
+                const arr = JSON.parse(raw);
+                if(Array.isArray(arr) && arr.length > localCount) localCount = arr.length;
+              }
+            }catch(_){}
+          }
+        }
+      }catch(_){}
+      return Math.max(dbCount, localCount);
+    }
+
+    // Collection count resolver
+    async function getCollectionCount(){
+      let dbCount = 0;
+      try{
+        if(c){
+          const { count, error } = await client.from("collections")
+            .select("id", { count: "exact", head: true })
+            .eq("company_id", c);
+          if(!error && typeof count === "number") dbCount = count;
+        }
+        if(dbCount === 0){
+          const { count: anyCount, error: anyErr } = await client.from("collections")
+            .select("id", { count: "exact", head: true });
+          if(!anyErr && typeof anyCount === "number" && anyCount > 0) dbCount = anyCount;
+        }
+      }catch(_){}
+
+      let localCount = 0;
+      try{
+        for(let i = 0; i < localStorage.length; i++){
+          const key = localStorage.key(i);
+          if(key && key.startsWith("insight_collections")){
+            try{
+              const raw = localStorage.getItem(key);
+              if(raw){
+                const arr = JSON.parse(raw);
+                if(Array.isArray(arr) && arr.length > localCount) localCount = arr.length;
+              }
+            }catch(_){}
+          }
+        }
+      }catch(_){}
+      return Math.max(dbCount, localCount);
+    }
+
+    // Sessions and leads
+    async function getSessionsCount(){
+      try{
+        if(c) return await countRows(client,"visualization_sessions",c);
+        const { count } = await client.from("visualization_sessions").select("id", { count: "exact", head: true });
+        return typeof count === "number" ? count : 0;
+      }catch(_){ return 0; }
+    }
+
+    async function getLeadsCount(){
+      try{
+        if(c) return await countRows(client,"leads",c,"status","new");
+        const { count } = await client.from("leads").select("id", { count: "exact", head: true }).eq("status", "new");
+        return typeof count === "number" ? count : 0;
+      }catch(_){ return 0; }
+    }
 
     // Each metric is independent: one table/query cannot freeze the dashboard.
     const results=await Promise.allSettled([
-      countRows(client,"products",c,"status","published"),
-      countRows(client,"rooms",c),
-      countRows(client,"brands",c),
-      countRows(client,"collections",c),
-      countRows(client,"visualization_sessions",c),
-      countRows(client,"leads",c,"status","new")
+      getProductCount(),
+      getRoomCount(),
+      getBrandCount(),
+      getCollectionCount(),
+      getSessionsCount(),
+      getLeadsCount()
     ]);
 
     const val=i=>results[i].status==="fulfilled" ? results[i].value : 0;

@@ -7,20 +7,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-async function signOut(){
-  try{await client.auth.signOut()}finally{location.replace("insightvis_login.html")}
-}
-
-document.getElementById("signout").onclick=signOut;
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--ink:#17201d;--muted:#71807b;--green:#1e5d56;--green2:#174b45;--bg:#f3f5f4;--line:#e4e9e7;--white:#fff;--sidebar:#111514}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",sans-serif}
-.app{display:flex;min-height:100vh}.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
-.logo{font-family:Manrope;font-size:22px;font-weight:800;letter-spacing:.08em;padding:0 12px 30px;color:#fff}.logo span{color:#75b7a9}
-.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#68736f;padding:0 12px 10px}.nav a{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:11px;color:#aeb7b3;text-decoration:none;font-size:14px;margin:2px 0}.nav a:hover,.nav a.active{background:#1b2522;color:#fff}.nav a.active{box-shadow:inset 3px 0 0 #75b7a9}
-.nav svg{width:17px;height:17px;opacity:.9}.side-bottom{margin-top:auto}.user-mini{padding:13px 12px;border-top:1px solid #29302e;display:flex;gap:10px;align-items:center}.avatar{width:34px;height:34px;border-radius:10px;background:#2a3834;display:grid;place-items:center;font-weight:700}.user-mini small{display:block;color:#7d8985;margin-top:2px}
+.app{display:flex;min-height:100vh}
+.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
+.side .logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px;text-decoration:none}
+.side .logo b{color:#75b7a9}
+.side .label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
+.side .nav{display:grid;gap:3px;flex:0 0 auto;overflow:visible}
+.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none;margin:2px 0}
+.side .nav a:hover,.side .nav a.active{background:#1d2927;color:#fff}
+.side .nav a.active{box-shadow:inset 3px 0 0 #75b7a9}
+.side .ico{width:18px;text-align:center;color:#80908b}
+.side .active .ico{color:#72a9a2}
+.side .bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
+.side .profile{display:flex;gap:10px;align-items:center;padding:10px}
+.side .avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}
+.side .profile strong{display:block;font-size:12px;color:#e6ecea}
+.side .profile small{display:block;color:#697571;font-size:10px;margin-top:2px}
+.side .signout{border:0;background:none;color:#899490;cursor:pointer;font:inherit;font-size:12px;padding:9px 10px}
 .main{margin-left:240px;width:calc(100% - 240px);padding:30px 34px 40px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.eyebrow{font-size:12px;color:var(--muted);margin-bottom:5px}.title{font-family:Manrope;font-size:28px;font-weight:800;margin:0}.subtitle{margin:7px 0 0;color:var(--muted);font-size:14px}
 .primary{border:0;background:var(--green);color:#fff;padding:12px 17px;border-radius:11px;font-weight:700;font-family:inherit;cursor:pointer}.primary:hover{background:var(--green2)}
 .toolbar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;gap:10px;align-items:center;margin-bottom:18px;box-shadow:0 4px 18px rgba(18,35,31,.035)}
@@ -87,19 +94,6 @@ select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;backgro
 .thumb{overflow:hidden;display:grid;place-items:center}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb-fallback{font-weight:800;color:#8a9792}
-
-
-
-.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
-.side .logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px;text-decoration:none}
-.side .logo b{color:#75b7a9}
-.side .label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
-.side .nav{display:grid;gap:3px;flex:0 0 auto;overflow:visible}
-.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none}
-.side .nav a:hover,.side .nav a.active{background:#1d2927;color:#fff}
-.side .ico{width:18px;text-align:center;color:#80908b}.side .active .ico{color:#72a9a2}
-.side .bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
-.side .profile{display:flex;gap:10px;align-items:center;padding:10px}.side .avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}.side .profile strong{display:block;font-size:12px;color:#e6ecea}.side .profile small{display:block;color:#697571;font-size:10px;margin-top:2px}.side .signout{border:0;background:none;color:#899490;cursor:pointer;font-size:12px;padding:9px 10px}
 </style>
 <style>
 /* Inline dimension mismatch alert: stays inside Add Product and preserves every input. */
@@ -263,13 +257,25 @@ select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;backgro
 <a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
 <a href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
 <a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
-<a href="insightvis_projects.html"><span class="ico">⌑</span><span>Projects</span></a>
 <a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
 <a href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
 </nav>
 <div class="bottom">
 <div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Loading…</strong><small id="companyName">Loading…</small></div></div>
-<button class="signout" id="signout">Sign out</button>
+<button class="signout" id="signout" type="button">Sign out</button>
+<script>
+(function(){
+  try{
+    var c=JSON.parse(localStorage.getItem("insight_user_account")||"null");
+    if(c){
+      var u=document.getElementById("userName"),co=document.getElementById("companyName"),a=document.getElementById("avatar");
+      if(u&&c.name) u.textContent=c.name;
+      if(co&&c.company) co.textContent=c.company;
+      if(a&&c.avatar) a.textContent=c.avatar;
+    }
+  }catch(_){}
+})();
+</script>
 </div>
 </aside>
 
@@ -281,9 +287,16 @@ select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;backgro
 
   <div class="toolbar">
     <div class="search"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" d="m21 21-4.3-4.3M10.8 18a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Z"/></svg><input id="search" placeholder="Search by product name or SKU"></div>
+    <select id="brandFilter"><option value="">All brands</option></select>
+    <select id="collectionFilter"><option value="">All collections</option></select>
     <select id="category"><option value="">All categories</option><option>Wall Panels</option><option>SPC Flooring</option><option>Tiles</option><option>Vinyl Flooring</option><option>Wood Flooring</option><option>Carpet</option><option>Wall Finishes</option><option>Natural Stone</option></select>
-    <select id="status"><option value="">All status</option><option value="published">Published</option><option value="draft">Draft</option><option value="archived">Archived</option></select>
+    <select id="status"><option value="">All status</option><option value="published">Published</option><option value="active">Active</option><option value="draft">Draft</option><option value="archived">Archived</option></select>
     <div class="count" id="count">— products</div>
+  </div>
+
+  <div id="filterBanner" style="display:none;margin-bottom:14px;padding:9px 14px;background:#eef6f4;border:1px solid #c9ded9;border-radius:10px;font-size:12px;color:#194f49;align-items:center;justify-content:space-between">
+    <span id="filterBannerText">Filtered view</span>
+    <button type="button" id="clearFilterBtn" style="border:0;background:transparent;color:#194f49;font-weight:700;cursor:pointer;text-decoration:underline">Clear filter</button>
   </div>
 
   <div class="selection-bar" id="selectionBar" style="display:none">
@@ -311,6 +324,20 @@ select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;backgro
         <div class="field"><label>Description</label><textarea id="brandDescription" placeholder="Short brand description"></textarea></div>
       </div>
       <div class="modal-foot"><button type="button" class="secondary" id="cancelBrandBtn">Cancel</button><button class="primary" type="submit">Create Brand</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-back" id="collectionModalBack" style="z-index:1000">
+  <div class="modal brand-modal">
+    <div class="modal-head"><div><div class="eyebrow">Catalogue</div><h2>Add Collection</h2></div><button class="close" id="closeColBtn">×</button></div>
+    <form id="inlineColForm">
+      <div class="form" style="grid-template-columns:1fr">
+        <div class="field"><label>Collection name *</label><input id="colModalName" required placeholder="e.g. Calacatta Luxe"></div>
+        <div class="field"><label>Brand</label><select id="colModalBrand"><option value="">Select brand (optional)</option></select></div>
+        <div class="field"><label>Description</label><textarea id="colModalDesc" placeholder="Short collection description"></textarea></div>
+      </div>
+      <div class="modal-foot"><button type="button" class="secondary" id="cancelColBtn">Cancel</button><button class="primary" type="submit">Create Collection</button></div>
     </form>
   </div>
 </div>
@@ -343,6 +370,12 @@ select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;backgro
           <div class="select-with-add">
             <select id="pBrand"><option value="">Select brand</option></select>
             <button type="button" class="add-inline" id="addBrandBtn">+ Add Brand</button>
+          </div>
+        </div>
+        <div class="field"><label>Collection</label>
+          <div class="select-with-add">
+            <select id="pCollection"><option value="">Select collection</option></select>
+            <button type="button" class="add-inline" id="addCollectionBtn">+ Add Collection</button>
           </div>
         </div>
         <div class="field"><label>Category</label><select id="pCategory"><option value="">Select category</option><option>Wall Panels</option><option>SPC Flooring</option><option>Tiles</option><option>Vinyl Flooring</option><option>Wood Flooring</option><option>Carpet</option><option>Wall Finishes</option><option>Natural Stone</option></select></div>
@@ -428,67 +461,306 @@ let allProducts=[];
 let productAssetUrls={};
 
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function initials(first,last,email){return ((first||"")[0]||(email||"U")[0]).toUpperCase()+((last||"")[0]||"").toUpperCase()}
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2800)}
+
+function getInitials(name){
+  const parts=String(name||"IN").trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return "IN";
+  return parts.slice(0,2).map(p=>p[0]).join("").toUpperCase() || "IN";
+}
+
+function syncSidebarAccount(name, company, email){
+  const cleanName = (name||"Account").trim();
+  const cleanCompany = (company||"INSIGHT").trim();
+  const av = getInitials(cleanName);
+  const u = document.getElementById("userName");
+  const c = document.getElementById("companyName");
+  const a = document.getElementById("avatar");
+  if(u) u.textContent = cleanName;
+  if(c) c.textContent = cleanCompany;
+  if(a) a.textContent = av;
+  try{
+    localStorage.setItem("insight_user_account", JSON.stringify({
+      name: cleanName,
+      company: cleanCompany,
+      email: email||"",
+      avatar: av
+    }));
+  }catch(_){}
+}
+
+async function handleSignOut(){
+  const button=document.getElementById("signout");
+  if(button){
+    button.disabled=true;
+    button.textContent="Signing out…";
+  }
+  try{
+    localStorage.removeItem("insight_user_account");
+    sessionStorage.clear();
+  }catch(_){}
+  try{
+    if(typeof sb !== "undefined" && sb.auth){
+      await sb.auth.signOut();
+    }
+  }catch(err){
+    console.warn("INSIGHT signout error:", err);
+  }finally{
+    window.location.replace("insightvis_login.html");
+  }
+}
+
+function toast(msg){
+  const t=document.getElementById("toast");
+  if(!t) return;
+  t.textContent=msg;
+  t.style.display="block";
+  setTimeout(()=>{ if(t) t.style.display="none"; },2800);
+}
 function imgFor(p){return p?.url || p?.image_url || ""}
-async function loadBrands(){
+
+let allBrands=[];
+let allCollections=[];
+
+async function loadBrands(companyId){
   const select=document.getElementById("pBrand");
-  if(!select)return;
-  const {data,error}=await sb.from("brands").select("id,name").order("name");
-  if(error){console.error(error);return}
-  select.innerHTML='<option value="">Select brand</option>'+(data||[]).map(b=>`<option value="${esc(b.id)}">${esc(b.name)}</option>`).join("");
+  const filter=document.getElementById("brandFilter");
+  const modalSelect=document.getElementById("colModalBrand");
+
+  let brands=[];
+  try{
+    const {data,error}=await sb.from("brands").select("id,name").order("name");
+    if(!error && data) brands=data;
+  }catch(_){}
+
+  if(!brands.length && companyId){
+    try{
+      const raw=localStorage.getItem("insight_brands_"+companyId)||localStorage.getItem("insight_brands");
+      if(raw) brands=JSON.parse(raw);
+    }catch(_){}
+  }
+  allBrands=brands;
+  if(companyId){
+    try{ localStorage.setItem("insight_brands_"+companyId, JSON.stringify(brands)); }catch(_){}
+  }
+
+  const opts='<option value="">Select brand</option>'+brands.map(b=>`<option value="${esc(b.id)}">${esc(b.name)}</option>`).join("");
+  if(select) select.innerHTML=opts;
+  if(modalSelect) modalSelect.innerHTML='<option value="">Select brand (optional)</option>'+brands.map(b=>`<option value="${esc(b.id)}">${esc(b.name)}</option>`).join("");
+  if(filter){
+    const prev=filter.value;
+    filter.innerHTML='<option value="">All brands</option>'+brands.map(b=>`<option value="${esc(b.id)}">${esc(b.name)}</option>`).join("");
+    if(prev) filter.value=prev;
+  }
 }
+
+async function loadCollections(companyId){
+  const select=document.getElementById("pCollection");
+  const filter=document.getElementById("collectionFilter");
+
+  let collections=[];
+  try{
+    const {data,error}=await sb.from("collections").select("id,name,brand_id").order("name");
+    if(!error && data) collections=data;
+  }catch(_){}
+
+  if(!collections.length && companyId){
+    try{
+      const raw=localStorage.getItem("insight_collections_"+companyId)||localStorage.getItem("insight_collections");
+      if(raw) collections=JSON.parse(raw);
+    }catch(_){}
+  }
+  allCollections=collections;
+  if(companyId){
+    try{ localStorage.setItem("insight_collections_"+companyId, JSON.stringify(collections)); }catch(_){}
+  }
+
+  const opts='<option value="">Select collection</option>'+collections.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  if(select) select.innerHTML=opts;
+  if(filter){
+    const prev=filter.value;
+    filter.innerHTML='<option value="">All collections</option>'+collections.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+    if(prev) filter.value=prev;
+  }
+}
+
+function updateFilterBanner(){
+  const bFilter=document.getElementById("brandFilter")?.value;
+  const cFilter=document.getElementById("collectionFilter")?.value;
+  const banner=document.getElementById("filterBanner");
+  const text=document.getElementById("filterBannerText");
+  if(!banner || !text) return;
+
+  const bName=allBrands.find(b=>b.id===bFilter)?.name;
+  const cName=allCollections.find(c=>c.id===cFilter)?.name;
+
+  if(bName || cName){
+    const parts=[];
+    if(bName) parts.push(`Brand: <strong>${esc(bName)}</strong>`);
+    if(cName) parts.push(`Collection: <strong>${esc(cName)}</strong>`);
+    text.innerHTML=`Filtered by ${parts.join(" and ")}`;
+    banner.style.display="flex";
+  }else{
+    banner.style.display="none";
+  }
+}
+
 async function load(){
+  const soBtn=document.getElementById("signout");
+  if(soBtn) soBtn.onclick=handleSignOut;
+  document.addEventListener("click",function(e){
+    if(e.target && e.target.closest("#signout")){
+      e.preventDefault();
+      handleSignOut();
+    }
+  });
+
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){location.href="insightvis_login.html";return}
-  const user=session.user;
-  const meta=user.user_metadata||{};
-  document.getElementById("userName").textContent=((meta.first_name||"")+" "+(meta.last_name||"")).trim()||user.email||"Account";
-  document.getElementById("avatar").textContent=initials(meta.first_name,meta.last_name,user.email);
-  const {data:profile,error:pe}=await sb.from("profiles").select("company_id,first_name,last_name").eq("id",user.id).maybeSingle();
-  if(pe||!profile?.company_id){document.getElementById("companyName").textContent="Company unavailable"; await render([]); return}
-  const {data:company}=await sb.from("companies").select("name").eq("id",profile.company_id).maybeSingle();
-  document.getElementById("companyName").textContent=company?.name||"Company";
-  await loadBrands();
-  await loadProducts();
+  let localAccount=null;
+  try{ localAccount=JSON.parse(localStorage.getItem("insight_user_account")||"null"); }catch(_){}
+
+  if(!session && (!localAccount || !localAccount.email)){
+    try{ localStorage.removeItem("insight_user_account"); }catch(_){}
+    location.replace("insightvis_login.html");
+    return;
+  }
+  const user=session?.user;
+  const meta=user?.user_metadata||{};
+  const fallbackName=[meta.first_name,meta.last_name].filter(Boolean).join(" ") || localAccount?.name || user?.email?.split("@")[0] || "Account";
+  const fallbackCompany=meta.company_name||meta.company||localAccount?.company||"INSIGHT";
+  syncSidebarAccount(fallbackName,fallbackCompany,user?.email||localAccount?.email||"");
+
+  let profile=null;
+  if(user?.id){
+    const {data:p}=await sb.from("profiles").select("company_id,first_name,last_name").eq("id",user.id).maybeSingle();
+    profile=p;
+  }
+  let activeCompanyId=profile?.company_id || localAccount?.company_id;
+  let resolvedName=fallbackName;
+  let resolvedCompany=fallbackCompany;
+
+  if(profile){
+    const pName=[profile.first_name,profile.last_name].filter(Boolean).join(" ").trim();
+    if(pName) resolvedName=pName;
+    if(profile.company_id){
+      const {data:company}=await sb.from("companies").select("name").eq("id",profile.company_id).maybeSingle();
+      if(company?.name) resolvedCompany=company.name;
+    }
+  }
+  syncSidebarAccount(resolvedName,resolvedCompany,user?.email||localAccount?.email||"");
+
+  if(!activeCompanyId){
+    await render([]);
+    return;
+  }
+
+  await loadBrands(activeCompanyId);
+  await loadCollections(activeCompanyId);
+
+  // Check URL query parameters for brand or collection filter
+  const params=new URLSearchParams(window.location.search);
+  const brandParam=params.get("brand");
+  const colParam=params.get("collection");
+  if(brandParam && document.getElementById("brandFilter")){
+    document.getElementById("brandFilter").value=brandParam;
+  }
+  if(colParam && document.getElementById("collectionFilter")){
+    document.getElementById("collectionFilter").value=colParam;
+  }
+  updateFilterBanner();
+
+  await loadProducts(activeCompanyId);
 }
-async function loadProducts(){
-  document.getElementById("loading").style.display="block";document.getElementById("table").style.display="none";document.getElementById("empty").style.display="none";
-  const {data,error}=await sb.from("products").select("id,name,sku,category,material_type,surface,size,status,brand_id,collection_id,length,width,thickness,dimension_unit,application,price,price_unit,description,created_at,updated_at,brands(name),collections(name)").order("created_at",{ascending:false});
-  if(error){document.getElementById("loading").textContent="Unable to load products.";console.error(error);return}
-  allProducts=data||[];
+async function loadProducts(companyId){
+  const loading=document.getElementById("loading"),table=document.getElementById("table"),empty=document.getElementById("empty");
+  if(loading) loading.style.display="block";
+  if(table) table.style.display="none";
+  if(empty) empty.style.display="none";
+
+  let prods=[];
+  try{
+    const {data,error}=await sb.from("products").select("id,name,sku,category,material_type,surface,size,status,brand_id,collection_id,length,width,thickness,dimension_unit,application,price,price_unit,description,created_at,updated_at,brands(name),collections(name)").order("created_at",{ascending:false});
+    if(!error && data) prods=data;
+  }catch(_){}
+
+  // Merge with locally added or updated products
+  const activeCId = companyId || "default";
+  try{
+    const raw = localStorage.getItem("insight_products_" + activeCId) || localStorage.getItem("insight_products");
+    if(raw){
+      const localList = JSON.parse(raw);
+      localList.forEach(lp => {
+        const idx = prods.findIndex(p => p.id === lp.id);
+        if(idx >= 0){
+          prods[idx] = { ...prods[idx], ...lp };
+        }else{
+          prods.push(lp);
+        }
+      });
+    }
+    localStorage.setItem("insight_products_" + activeCId, JSON.stringify(prods));
+  }catch(_){}
+
+  allProducts=prods;
 
   productAssetUrls={};
   if(allProducts.length){
     const ids=allProducts.map(p=>p.id);
-    const {data:assets}=await sb.from("product_assets").select("product_id,storage_path,asset_type,sort_order").in("product_id",ids).eq("asset_type","texture").order("sort_order");
-    (assets||[]).forEach(asset=>{
-      if(!productAssetUrls[asset.product_id]){
-        productAssetUrls[asset.product_id]=sb.storage.from("product-assets").getPublicUrl(asset.storage_path).data.publicUrl;
+    try{
+      const {data:assets}=await sb.from("product_assets").select("product_id,storage_path,asset_type,sort_order").in("product_id",ids).eq("asset_type","texture").order("sort_order");
+      (assets||[]).forEach(asset=>{
+        if(!productAssetUrls[asset.product_id]){
+          productAssetUrls[asset.product_id]=sb.storage.from("product-assets").getPublicUrl(asset.storage_path).data.publicUrl;
+        }
+      });
+    }catch(_){}
+    // Also include any direct image_url or url
+    allProducts.forEach(p => {
+      if(!productAssetUrls[p.id] && (p.url || p.image_url)){
+        productAssetUrls[p.id] = p.url || p.image_url;
       }
     });
   }
   render(allProducts);
 }
 function render(products){
-  const q=document.getElementById("search").value.toLowerCase().trim(), cat=document.getElementById("category").value, st=document.getElementById("status").value;
-  const rows=products.filter(p=>(!q||(p.name||"").toLowerCase().includes(q)||(p.sku||"").toLowerCase().includes(q))&&(!cat||p.category===cat)&&(!st||p.status===st));
-  document.getElementById("loading").style.display="none";document.getElementById("count").textContent=`${rows.length} product${rows.length===1?"":"s"}`;
+  const searchEl=document.getElementById("search"), catEl=document.getElementById("category"), stEl=document.getElementById("status");
+  const brandEl=document.getElementById("brandFilter"), colEl=document.getElementById("collectionFilter");
+  const q=searchEl?searchEl.value.toLowerCase().trim():"", cat=catEl?catEl.value:"", st=stEl?stEl.value:"";
+  const bFilter=brandEl?brandEl.value:"", cFilter=colEl?colEl.value:"";
+
+  const rows=products.filter(p=>{
+    const matchQ=(!q||(p.name||"").toLowerCase().includes(q)||(p.sku||"").toLowerCase().includes(q));
+    const matchCat=(!cat||p.category===cat);
+    const matchSt=(!st||p.status===st||(st==="published"&&p.status==="active"));
+    const matchBrand=(!bFilter||p.brand_id===bFilter);
+    const matchCol=(!cFilter||p.collection_id===cFilter);
+    return matchQ && matchCat && matchSt && matchBrand && matchCol;
+  });
+  const loading=document.getElementById("loading"), count=document.getElementById("count"), table=document.getElementById("table"), empty=document.getElementById("empty");
+  if(loading) loading.style.display="none";
+  if(count) count.textContent=`${rows.length} product${rows.length===1?"":"s"}`;
   if(!rows.length){
-    document.getElementById("table").style.display="none";
-    document.getElementById("empty").style.display="block";
+    if(table) table.style.display="none";
+    if(empty) empty.style.display="block";
     selectedIds.clear();
-    document.getElementById("selectionBar").style.display="none";
+    const bar=document.getElementById("selectionBar");
+    if(bar) bar.style.display="none";
     return;
   }
-  document.getElementById("empty").style.display="none";document.getElementById("table").style.display="table";
-  document.getElementById("body").innerHTML=rows.map(p=>{
-    const status=p.status||"draft";
-    return `<tr data-id="${esc(p.id)}"><td class="check-col"><input type="checkbox" class="product-check" data-id="${esc(p.id)}" aria-label="Select ${esc(p.name)}"></td><td><div class="product"><div class="thumb">${productAssetUrls[p.id]?`<img src="${esc(productAssetUrls[p.id])}" alt="${esc(p.name)}" loading="lazy">`:`<span class="thumb-fallback">—</span>`}</div><div><div class="pname">${esc(p.name)}</div><div class="sku">${esc(p.sku||"No SKU")}</div></div></div></td>
-    <td>${esc(p.category||"—")}</td><td>${esc(p.brands?.name||"—")}</td><td>${esc(p.collections?.name||"—")}</td><td>${esc(p.size||"—")}</td><td>${p.price!=null?esc(p.price)+" / "+esc(p.price_unit||"unit"):"—"}</td>
-    <td><span class="pill ${esc(status)}">${esc(status.charAt(0).toUpperCase()+status.slice(1))}</span></td>
-    <td><div class="actions"><button class="action" onclick="editProduct('${p.id}')">Edit</button><button class="action" onclick="archiveProduct('${p.id}')">Archive</button></div></td></tr>`
-  }).join("");
+  if(empty) empty.style.display="none";
+  if(table) table.style.display="table";
+  const body=document.getElementById("body");
+  if(body){
+    body.innerHTML=rows.map(p=>{
+      const status=p.status||"draft";
+      const bName = p.brands?.name || allBrands.find(b=>b.id===p.brand_id)?.name || "—";
+      const cName = p.collections?.name || allCollections.find(c=>c.id===p.collection_id)?.name || "—";
+      return `<tr data-id="${esc(p.id)}"><td class="check-col"><input type="checkbox" class="product-check" data-id="${esc(p.id)}" aria-label="Select ${esc(p.name)}"></td><td><div class="product"><div class="thumb">${productAssetUrls[p.id]?`<img src="${esc(productAssetUrls[p.id])}" alt="${esc(p.name)}" loading="lazy">`:`<span class="thumb-fallback">—</span>`}</div><div><div class="pname">${esc(p.name)}</div><div class="sku">${esc(p.sku||"No SKU")}</div></div></div></td>
+      <td>${esc(p.category||"—")}</td><td>${esc(bName)}</td><td>${esc(cName)}</td><td>${esc(p.size||"—")}</td><td>${p.price!=null?esc(p.price)+" / "+esc(p.price_unit||"unit"):"—"}</td>
+      <td><span class="pill ${esc(status)}">${esc(status.charAt(0).toUpperCase()+status.slice(1))}</span></td>
+      <td><div class="actions"><button class="action" onclick="editProduct('${p.id}')">Edit</button><button class="action" onclick="archiveProduct('${p.id}')">Archive</button></div></td></tr>`
+    }).join("");
+  }
   wireSelection();
   updateSelection();
 }
@@ -497,10 +769,15 @@ let editingProductId=null;
 function updateSelection(){
   const selected=allProducts.filter(p=>selectedIds.has(p.id));
   const bar=document.getElementById("selectionBar");
-  if(!selected.length){bar.style.display="none";return}
-  bar.style.display="flex";
-  document.getElementById("selectedName").textContent=selected.length===1?selected[0].name:`${selected.length} products selected`;
-  document.getElementById("selectedMeta").textContent=`${selected.length} selected`;
+  if(!selected.length){
+    if(bar) bar.style.display="none";
+    return;
+  }
+  if(bar) bar.style.display="flex";
+  const sName=document.getElementById("selectedName");
+  const sMeta=document.getElementById("selectedMeta");
+  if(sName) sName.textContent=selected.length===1?selected[0].name:`${selected.length} products selected`;
+  if(sMeta) sMeta.textContent=`${selected.length} selected`;
 }
 function wireSelection(){
   document.querySelectorAll(".product-check").forEach(cb=>{
@@ -516,15 +793,17 @@ function wireSelection(){
   });
 }
 function editProduct(id){
-  document.getElementById("pSaveStatus").value=p.status==="draft"?"draft":"active";
   const p=allProducts.find(x=>x.id===id);
   if(!p){toast("Product not found.");return}
+
+  document.getElementById("pSaveStatus").value=p.status==="draft"?"draft":"active";
 
   editingProductId=id;
   document.querySelector("#modalBack h2").textContent="Edit Product";
   document.getElementById("pName").value=p.name||"";
   document.getElementById("pSku").value=p.sku||"";
   document.getElementById("pBrand").value=p.brand_id||"";
+  if(document.getElementById("pCollection")) document.getElementById("pCollection").value=p.collection_id||"";
   document.getElementById("pCategory").value=p.category||"";
   document.getElementById("pMaterial").value=p.material_type||"";
   document.getElementById("pLength").value=p.length??"";
@@ -567,12 +846,26 @@ async function archiveProduct(id){
 document.getElementById("search").addEventListener("input",()=>render(allProducts));
 document.getElementById("category").addEventListener("change",()=>render(allProducts));
 document.getElementById("status").addEventListener("change",()=>render(allProducts));
+document.getElementById("brandFilter")?.addEventListener("change",()=>{updateFilterBanner();render(allProducts);});
+document.getElementById("collectionFilter")?.addEventListener("change",()=>{updateFilterBanner();render(allProducts);});
+document.getElementById("clearFilterBtn")?.addEventListener("click",()=>{
+  if(document.getElementById("brandFilter")) document.getElementById("brandFilter").value="";
+  if(document.getElementById("collectionFilter")) document.getElementById("collectionFilter").value="";
+  if(document.getElementById("category")) document.getElementById("category").value="";
+  if(document.getElementById("status")) document.getElementById("status").value="";
+  if(document.getElementById("search")) document.getElementById("search").value="";
+  history.replaceState(null,"",window.location.pathname);
+  updateFilterBanner();
+  render(allProducts);
+});
+
 function openModal(){
   document.getElementById("modalBack").style.display="flex";
 }
 function closeModal(){
   document.getElementById("modalBack").style.display="none";
   document.getElementById("productForm").reset();
+  if(document.getElementById("pCollection")) document.getElementById("pCollection").value="";
   document.querySelectorAll('input[name="application"],input[name="surface"]').forEach(el=>el.checked=false);
   document.getElementById("uploadBox").classList.remove("invalid");
   document.getElementById("uploadHelp").textContent="Use an image with the same length-to-width proportion as the product. This image will be used later on the authoring plane.";
@@ -608,12 +901,44 @@ document.getElementById("brandForm").addEventListener("submit",async e=>{
   const description=document.getElementById("brandDescription").value.trim()||null;
   const {data:brand,error}=await sb.from("brands").insert({company_id:profile.company_id,name,description}).select("id,name").single();
   if(error){toast(error.message);return}
-  const select=document.getElementById("pBrand");
-  select.insertAdjacentHTML("beforeend",`<option value="${esc(brand.id)}">${esc(brand.name)}</option>`);
-  select.value=brand.id;
+  await loadBrands(profile.company_id);
+  document.getElementById("pBrand").value=brand.id;
   document.getElementById("brandModalBack").style.display="none";
   document.getElementById("brandForm").reset();
   toast("Brand created and selected");
+});
+
+// Inline collection modal handlers
+document.getElementById("addCollectionBtn")?.addEventListener("click",function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  // pre-select active brand if selected in product form
+  const currentBrand = document.getElementById("pBrand")?.value;
+  if(currentBrand && document.getElementById("colModalBrand")) document.getElementById("colModalBrand").value = currentBrand;
+  document.getElementById("collectionModalBack").style.display="flex";
+  document.getElementById("colModalName").focus();
+});
+document.getElementById("closeColBtn")?.addEventListener("click",()=>document.getElementById("collectionModalBack").style.display="none");
+document.getElementById("cancelColBtn")?.addEventListener("click",()=>document.getElementById("collectionModalBack").style.display="none");
+document.getElementById("collectionModalBack")?.addEventListener("click",e=>{
+  if(e.target.id==="collectionModalBack")e.currentTarget.style.display="none";
+});
+document.getElementById("inlineColForm")?.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const {data:{user}}=await sb.auth.getUser();
+  if(!user){location.href="insightvis_login.html";return}
+  const {data:profile}=await sb.from("profiles").select("company_id").eq("id",user.id).maybeSingle();
+  if(!profile?.company_id){toast("Your company could not be found.");return}
+  const name=document.getElementById("colModalName").value.trim();
+  const brand_id=document.getElementById("colModalBrand").value||null;
+  const description=document.getElementById("colModalDesc").value.trim()||null;
+  const {data:col,error}=await sb.from("collections").insert({company_id:profile.company_id,brand_id,name,description}).select("id,name").single();
+  if(error){toast(error.message);return}
+  await loadCollections(profile.company_id);
+  if(document.getElementById("pCollection")) document.getElementById("pCollection").value=col.id;
+  document.getElementById("collectionModalBack").style.display="none";
+  document.getElementById("inlineColForm").reset();
+  toast("Collection created and selected");
 });
 document.getElementById("productForm").addEventListener("submit",async e=>{
   e.preventDefault();
@@ -694,6 +1019,7 @@ document.getElementById("productForm").addEventListener("submit",async e=>{
     name:document.getElementById("pName").value.trim(),
     sku:document.getElementById("pSku").value.trim()||null,
     brand_id:document.getElementById("pBrand").value||null,
+    collection_id:document.getElementById("pCollection")?.value||null,
     category:document.getElementById("pCategory").value||null,
     application:application.length?application:null,
     material_type:document.getElementById("pMaterial").value.trim()||null,
@@ -903,15 +1229,20 @@ load();
 <script id="product-status-runtime">
 (function(){
   function syncProductConfirmation(){
+    const isEditing = !!editingProductId;
     const s=document.getElementById("pSaveStatus")?.value||"active";
     const p=document.querySelector("#productConfirm p");
     const b=document.getElementById("productConfirmYes");
+    const h=document.getElementById("productConfirmTitle");
+    if(h){
+      h.textContent = isEditing ? "Are you sure you want to update this product?" : "Are you sure you want to add this product?";
+    }
     if(s==="draft"){
       if(p)p.textContent="Save this product as a draft? You can edit it later before making it active.";
       if(b)b.textContent="Save Draft";
     }else{
-      if(p)p.textContent="Everything looks good. Confirm to add this product to your catalogue.";
-      if(b)b.textContent="Add Product";
+      if(p)p.textContent=isEditing ? "Everything looks good. Confirm to update this product in your catalogue." : "Everything looks good. Confirm to add this product to your catalogue.";
+      if(b)b.textContent=isEditing ? "Save Changes" : "Add Product";
     }
   }
   document.addEventListener("change",e=>{

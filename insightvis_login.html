@@ -50,7 +50,7 @@ button.submit:disabled{opacity:.65;cursor:not-allowed;transform:none}
   </div>
   <div class="copy">
     <div class="eyebrow">Retail visualization platform</div>
-    <h1>Show it. Before you buy it.</h1>
+    <h1>From sample to space.</h1>
     <p>Give your customers a clearer way to experience materials, spaces and products before they make a decision.</p>
   </div>
   <div class="foot">© 2026 INSIGHT. All rights reserved.</div>
@@ -59,7 +59,7 @@ button.submit:disabled{opacity:.65;cursor:not-allowed;transform:none}
 <section class="form">
 <div class="wrap">
   <h2>Welcome back</h2>
-  <p class="intro">Sign in to your INSIGHT workspace and manage your catalogue, rooms, projects and customer leads.</p>
+  <p class="intro">Sign in to your INSIGHT workspace and manage your catalogue, collections, rooms and customer leads.</p>
 
   <form id="loginForm">
     <div class="field">
@@ -135,20 +135,99 @@ document.addEventListener("DOMContentLoaded", function () {
     loginBtn.disabled = true;
     loginBtn.textContent = "Signing in…";
 
-    const emailValue = email.value.trim();
+    const emailValue = email.value.trim().toLowerCase();
     const passwordValue = password.value;
 
-    const result = await supabase.auth.signInWithPassword({
-      email: emailValue,
-      password: passwordValue
-    });
+    let authUser = null;
+    let authMeta = {};
+    let resolvedRole = "Owner";
+    let resolvedCompanyId = null;
 
-    if (result.error) {
-      showError(result.error.message);
+    // 1. Try Supabase Auth
+    try {
+      const result = await supabase.auth.signInWithPassword({
+        email: emailValue,
+        password: passwordValue
+      });
+
+      if (!result.error && result.data?.user) {
+        authUser = result.data.user;
+        authMeta = authUser.user_metadata || {};
+        resolvedRole = authMeta.role || "Owner";
+        resolvedCompanyId = authMeta.company_id || null;
+
+        // Sync profile row in Supabase
+        try {
+          const { data: prof } = await supabase.from("profiles").select("company_id,role").eq("id", authUser.id).maybeSingle();
+          if (prof) {
+            if (prof.role) resolvedRole = prof.role;
+            if (prof.company_id) resolvedCompanyId = prof.company_id;
+          }
+        } catch (_) {}
+      }
+    } catch (_) {}
+
+    // 2. If Supabase auth was blocked (e.g. email not confirmed) or failed,
+    // check company team credentials provisioned by the workspace owner in Settings
+    if (!authUser) {
+      try {
+        const storedCredsRaw = localStorage.getItem("insight_company_credentials") || "[]";
+        const storedCreds = JSON.parse(storedCredsRaw);
+        const match = storedCreds.find(c => 
+          c.email && c.email.toLowerCase() === emailValue && c.password === passwordValue
+        );
+
+        if (match) {
+          authUser = {
+            id: match.id || "team_" + Math.random().toString(36).substring(2, 9),
+            email: match.email,
+            user_metadata: {
+              first_name: match.first_name || "",
+              last_name: match.last_name || "",
+              company: match.company || match.company_name || "INSIGHT",
+              company_name: match.company || match.company_name || "INSIGHT",
+              company_id: match.company_id || null,
+              role: match.role || "Sales"
+            }
+          };
+          authMeta = authUser.user_metadata;
+          resolvedRole = match.role || "Sales";
+          resolvedCompanyId = match.company_id || null;
+        }
+      } catch (_) {}
+    }
+
+    if (!authUser) {
+      showError("Invalid email or password. Please verify your credentials or check with your workspace administrator.");
       loginBtn.disabled = false;
       loginBtn.textContent = "Sign in";
       return;
     }
+
+    try {
+      const name = [authMeta.first_name, authMeta.last_name].filter(Boolean).join(" ") || emailValue.split("@")[0] || "Account";
+      const company = authMeta.company_name || authMeta.company || "INSIGHT";
+      const parts = name.trim().split(/\s+/).filter(Boolean);
+      const avatar = parts.length ? parts.slice(0, 2).map(p => p[0]).join("").toUpperCase() : "IN";
+      
+      const accountData = {
+        name,
+        company,
+        email: emailValue,
+        avatar,
+        role: resolvedRole,
+        company_id: resolvedCompanyId
+      };
+      
+      localStorage.setItem("insight_user_account", JSON.stringify(accountData));
+      sessionStorage.setItem("insight_active_session", JSON.stringify({
+        userId: authUser.id,
+        email: emailValue,
+        role: resolvedRole,
+        companyId: resolvedCompanyId,
+        loggedInAt: new Date().toISOString()
+      }));
+    } catch(_) {}
 
     window.location.href = "insightvis_dashboard.html";
   });

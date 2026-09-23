@@ -14,12 +14,22 @@ body{margin:0;background:#f4f6f5;color:#17201e;font-family:"DM Sans",sans-serif}
 a{text-decoration:none;color:inherit}
 button,input,select{font:inherit}
 .layout{min-height:100vh}
-.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column}
-.logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px}.logo b{color:#72a9a2}
-.label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
-.nav{display:grid;gap:3px}.nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600}.nav a:hover,.nav a.active{background:#1d2927;color:#fff}.ico{width:18px;text-align:center;color:#80908b}.active .ico{color:#72a9a2}
-.bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
-.profile{display:flex;gap:10px;align-items:center;padding:10px}.avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}.profile strong{display:block;font-size:12px;color:#e6ecea}.profile small{display:block;color:#697571;font-size:10px;margin-top:2px}.signout{border:0;background:none;color:#899490;cursor:pointer;font-size:12px;padding:9px 10px}
+.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#111817;color:#aeb8b5;padding:24px 14px;display:flex;flex-direction:column;z-index:90}
+.side .logo{font:800 24px Manrope;color:#fff;padding:0 12px 30px;letter-spacing:-1px;text-decoration:none}
+.side .logo b{color:#75b7a9}
+.side .label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#65716e;padding:0 12px 9px;font-weight:700}
+.side .nav{display:grid;gap:3px;flex:0 0 auto;overflow:visible}
+.side .nav a{height:42px;border-radius:9px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:13px;font-weight:600;color:#aeb8b5;text-decoration:none;margin:2px 0}
+.side .nav a:hover,.side .nav a.active{background:#1d2927;color:#fff}
+.side .nav a.active{box-shadow:inset 3px 0 0 #75b7a9}
+.side .ico{width:18px;text-align:center;color:#80908b}.side .active .ico{color:#72a9a2}
+.side .bottom{margin-top:auto;border-top:1px solid #28302f;padding-top:12px}
+.side .profile{display:flex;gap:10px;align-items:center;padding:10px}
+.side .avatar{width:34px;height:34px;border-radius:9px;background:#e3efec;color:#1e5d56;display:grid;place-items:center;font-size:12px;font-weight:800}
+.side .profile strong{display:block;font-size:12px;color:#e6ecea;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.side .profile small{display:block;color:#697571;font-size:10px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.side .signout{border:0;background:none;color:#899490;cursor:pointer;font:inherit;font-size:12px;padding:9px 10px;text-align:left;transition:color .15s}
+.side .signout:hover{color:#e6ecea}
 .content{margin-left:240px;padding:30px 34px 50px;max-width:1500px}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.crumb{font-size:12px;color:#899590}
 .page-title{font:800 29px Manrope;letter-spacing:-1px;margin:0 0 6px}.page-sub{font-size:13px;color:#7b8683;margin:0}
@@ -38,8 +48,66 @@ button,input,select{font:inherit}
 .role-table{width:100%;border-collapse:collapse;font-size:11px}.role-table th{text-align:left;color:#899490;font-size:9px;text-transform:uppercase;letter-spacing:.7px;padding:9px 8px;border-bottom:1px solid #e8eeeb}.role-table td{padding:12px 8px;border-bottom:1px solid #edf0ef}.badge{display:inline-flex;padding:4px 8px;border-radius:20px;background:#e8f0ee;color:#1e5d56;font-size:9px;font-weight:800}.placeholder{padding:25px;border:1px dashed #d5dfdc;border-radius:11px;text-align:center;color:#899490;font-size:11px;line-height:1.6}
 .danger{border-color:#eadbd8}.danger .panel-title{color:#9a4a3e}
 .notice{display:none;margin-bottom:14px;padding:11px 13px;border-radius:9px;font-size:11px;font-weight:600}.notice.show{display:block}.notice.success{background:#e8f0ee;color:#1e5d56}.notice.error{background:#f8ecea;color:#9a4a3e}
-@media(max-width:900px){.settings-layout{grid-template-columns:1fr}.settings-nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}.settings-nav .group{display:none}}
-@media(max-width:700px){.side{width:66px;padding:20px 8px}.logo{font-size:0;padding:0 10px 28px}.logo:first-letter{font-size:24px}.label,.nav a span,.profile div:not(.avatar),.signout{display:none}.nav a{justify-content:center;padding:0}.content{margin-left:66px;padding:20px 15px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.settings-nav{grid-template-columns:1fr 1fr}.page-title{font-size:24px}}
+
+/* Team Management Styles */
+.team-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.team-kpi{background:#f9fbfa;border:1px solid #e2eae7;border-radius:10px;padding:14px}
+.team-kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#7a8884;font-weight:700}
+.team-kpi-val{font:800 20px Manrope;color:#17201e;margin-top:4px}
+.team-kpi-sub{font-size:10px;color:#7a8884;margin-top:2px}
+
+.auth-matrix-card{background:#f8faf9;border:1px solid #dce5e2;border-radius:10px;padding:14px;margin-bottom:18px}
+.auth-matrix-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.auth-matrix-col{background:#fff;border:1px solid #e5edea;border-radius:8px;padding:10px}
+.auth-matrix-col strong{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:4px}
+.auth-matrix-col p{margin:0;font-size:10px;color:#6f7c78;line-height:1.4}
+
+.role-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.role-badge.owner{background:#17201e;color:#f0cf8e}
+.role-badge.admin{background:#e8f0ee;color:#1e5d56}
+.role-badge.sales{background:#e3f2fd;color:#0d47a1}
+.role-badge.marketing{background:#f3e5f5;color:#6a1b9a}
+.role-badge.viewer{background:#f5f5f5;color:#616161}
+
+.user-avatar-sm{width:28px;height:28px;border-radius:7px;background:#e8f0ee;color:#1e5d56;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}
+
+/* Modals */
+.modal-backdrop{position:fixed;inset:0;background:rgba(12,18,16,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:999}
+.modal-backdrop.show{display:flex}
+.modal-card{width:min(520px,100%);background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.22);overflow:hidden}
+.modal-card.wide{width:min(620px,100%)}
+.modal-head{padding:18px 22px;border-bottom:1px solid #e0e7e4;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font:800 17px Manrope;color:#17201e}
+.modal-close{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:#7b8683}
+.modal-body{padding:22px;display:flex;flex-direction:column;gap:14px}
+.modal-foot{padding:14px 22px;border-top:1px solid #e0e7e4;background:#fafbfb;display:flex;justify-content:flex-end;gap:10px}
+.btn.sm{height:30px;padding:0 10px;font-size:11px}
+.btn.danger-soft{background:#fceeed;color:#a83226;border-color:#f5d0cc}
+.btn.danger-soft:hover{background:#f7dedb}
+
+.cred-box{background:#f5f8f7;border:1px solid #d5e1dc;border-radius:10px;padding:16px;margin:10px 0}
+.cred-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #e4ece9;font-size:12px}
+.cred-row:last-child{border-bottom:none}
+.cred-lbl{color:#6c7a76;font-weight:600}
+.cred-val{font-family:monospace;font-weight:700;color:#17201e;background:#fff;padding:2px 7px;border-radius:5px;border:1px solid #dbe3e0}
+
+@media(max-width:900px){
+  .side{width:66px;padding:20px 8px}
+  .side .logo{font-size:0;padding:0 10px 28px}
+  .side .logo:first-letter{font-size:24px}
+  .side .label,.side .nav a span:not(.ico),.side .profile div:not(.avatar),.side .signout{display:none}
+  .side .nav a{justify-content:center;padding:0}
+  .content{margin-left:66px;padding:22px 18px}
+  .settings-layout{grid-template-columns:1fr}
+  .settings-nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}
+  .settings-nav .group{display:none}
+}
+@media(max-width:700px){
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .settings-nav{grid-template-columns:1fr 1fr}
+  .page-title{font-size:24px}
+}
 </style>
 </head>
 <body>
@@ -53,13 +121,25 @@ button,input,select{font:inherit}
 <a href="insightvis_collections.html"><span class="ico">◈</span><span>Collections</span></a>
 <a href="insightvis_brands.html"><span class="ico">◇</span><span>Brands</span></a>
 <a href="insightvis_rooms.html"><span class="ico">▣</span><span>Rooms</span></a>
-<a href="insightvis_projects.html"><span class="ico">⌑</span><span>Projects</span></a>
 <a href="insightvis_leads.html"><span class="ico">◎</span><span>Leads</span></a>
 <a class="active" href="insightvis_settings.html"><span class="ico">⚙</span><span>Settings</span></a>
 </nav>
 <div class="bottom">
-<div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Account</strong><small id="companyName">INSIGHT</small></div></div>
-<button class="signout" id="signout">Sign out</button>
+<div class="profile"><div class="avatar" id="avatar">--</div><div><strong id="userName">Loading…</strong><small id="companyName">Loading…</small></div></div>
+<button class="signout" id="signout" type="button">Sign out</button>
+<script>
+(function(){
+  try{
+    var c=JSON.parse(localStorage.getItem("insight_user_account")||"null");
+    if(c){
+      var u=document.getElementById("userName"),co=document.getElementById("companyName"),a=document.getElementById("avatar");
+      if(u&&c.name) u.textContent=c.name;
+      if(co&&c.company) co.textContent=c.company;
+      if(a&&c.avatar) a.textContent=c.avatar;
+    }
+  }catch(_){}
+})();
+</script>
 </div>
 </aside>
 
@@ -131,8 +211,84 @@ button,input,select{font:inherit}
 
 <section class="section" id="team">
 <div class="panel">
-<div class="panel-head"><div><h2 class="panel-title">Team</h2><p class="panel-sub">Manage people who can access your retailer workspace.</p></div><button class="btn primary" disabled>Invite member</button></div>
-<div class="placeholder">Team invitations and role management will appear here.<br>Roles are structured around Owner, Admin, Sales and Viewer.</div>
+<div class="panel-head">
+  <div>
+    <h2 class="panel-title">Team & User Access</h2>
+    <p class="panel-sub">Provision and manage login credentials for staff members under your company workspace.</p>
+  </div>
+  <button class="btn primary" id="openAddMemberBtn" type="button">
+    <span>＋</span> Add User Credentials
+  </button>
+</div>
+
+<!-- Authority Matrix Banner -->
+<div class="auth-matrix-card">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <strong style="font-size:12px;color:#1e5d56">Company Authority Structure</strong>
+    <span style="font-size:11px;color:#7a8884" id="companyScopeLabel">Workspace: INSIGHT</span>
+  </div>
+  <div class="auth-matrix-grid">
+    <div class="auth-matrix-col">
+      <strong><span class="role-badge owner">Owner</span> Full Authority</strong>
+      <p>Billing, team credentials, security, catalogue, visualizer and all rooms.</p>
+    </div>
+    <div class="auth-matrix-col">
+      <strong><span class="role-badge admin">Admin</span> Operations</strong>
+      <p>Catalogue management, collections, brands, room scenes, and leads.</p>
+    </div>
+    <div class="auth-matrix-col">
+      <strong><span class="role-badge sales">Sales</span> Showroom & Leads</strong>
+      <p>Client visualization presentations, customer leads, pricing and quoting.</p>
+    </div>
+    <div class="auth-matrix-col">
+      <strong><span class="role-badge marketing">Marketing</span> Branding</strong>
+      <p>Showroom branding, design collections, room presets and marketing assets.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Team KPIs -->
+<div class="team-kpis">
+  <div class="team-kpi">
+    <div class="team-kpi-lbl">Total Users</div>
+    <div class="team-kpi-val" id="kpiTotalMembers">1</div>
+    <div class="team-kpi-sub">Active login credentials</div>
+  </div>
+  <div class="team-kpi">
+    <div class="team-kpi-lbl">Administrators</div>
+    <div class="team-kpi-val" id="kpiAdmins">1</div>
+    <div class="team-kpi-sub">Owner & Admin accounts</div>
+  </div>
+  <div class="team-kpi">
+    <div class="team-kpi-lbl">Sales & Marketing</div>
+    <div class="team-kpi-val" id="kpiSalesMarketing">0</div>
+    <div class="team-kpi-sub">Client & brand personnel</div>
+  </div>
+  <div class="team-kpi">
+    <div class="team-kpi-lbl">Your Authority</div>
+    <div class="team-kpi-val" style="font-size:15px;color:#1e5d56" id="kpiCurrentAuthority">Owner</div>
+    <div class="team-kpi-sub">Authorized to add users</div>
+  </div>
+</div>
+
+<!-- Team Members Table -->
+<div style="overflow-x:auto">
+  <table class="role-table" id="teamTable">
+    <thead>
+      <tr>
+        <th>Team Member</th>
+        <th>Work Email</th>
+        <th>Authority / Role</th>
+        <th>Company Workspace</th>
+        <th>Date Added</th>
+        <th style="text-align:right">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="teamTableBody">
+      <!-- Populated dynamically -->
+    </tbody>
+  </table>
+</div>
 </div>
 </section>
 
@@ -185,6 +341,150 @@ button,input,select{font:inherit}
 </main>
 </div>
 
+<!-- Modal 1: Add User Credentials -->
+<div class="modal-backdrop" id="addMemberModal">
+  <div class="modal-card wide">
+    <div class="modal-head">
+      <div>
+        <h3>Create User Login Credentials</h3>
+        <p style="margin:2px 0 0;font-size:12px;color:#7a8884">Register a usable account under your company workspace</p>
+      </div>
+      <button class="modal-close" onclick="closeAddMemberModal()" type="button">×</button>
+    </div>
+    <form id="addMemberForm" onsubmit="handleAddMemberSubmit(event)">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field">
+            <label>First Name *</label>
+            <input type="text" id="mFirstName" required placeholder="e.g. Sarah">
+          </div>
+          <div class="field">
+            <label>Last Name *</label>
+            <input type="text" id="mLastName" required placeholder="e.g. Jenkins">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Work Email (Login Username) *</label>
+          <input type="email" id="mEmail" required placeholder="e.g. sarah.jenkins@company.com">
+        </div>
+
+        <div class="field">
+          <label>Authority / Role in Company *</label>
+          <select id="mRole" required>
+            <option value="Sales">Sales — Showroom presentations, visualizer client sessions, product catalogue & quotes</option>
+            <option value="Marketing">Marketing — Workspace branding, collections, designer room presets & visual assets</option>
+            <option value="Admin">Admin — Catalogue authoring, collections, brands, staff management & leads</option>
+            <option value="Owner">Owner — Full administrative, billing and credential provisioning authority</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <label>Login Password *</label>
+            <button type="button" class="btn sm" onclick="generateRandomPassword()" style="font-size:11px;height:26px">
+              ⚡ Generate Secure Password
+            </button>
+          </div>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="mPassword" required minlength="6" placeholder="Password (minimum 6 characters)">
+            <button type="button" class="btn" style="flex-shrink:0" onclick="copyInputVal('mPassword')">Copy</button>
+          </div>
+          <small style="font-size:11px;color:#7a8884">The user can immediately log in with this email and password.</small>
+        </div>
+
+        <div style="background:#f4f7f6;border-radius:9px;padding:12px 14px;border:1px solid #dce5e2;font-size:12px;color:#495652">
+          🏢 <strong>Company Assignment:</strong> This account will be created under company <strong id="modalCompanyName">INSIGHT</strong> with <strong id="modalRolePreview">Sales</strong> permissions.
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" onclick="closeAddMemberModal()" type="button">Cancel</button>
+        <button class="btn primary" id="createMemberBtn" type="submit">Create Credentials</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 2: Credentials Ready / Copy Modal -->
+<div class="modal-backdrop" id="credentialsSuccessModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3 style="color:#1e5d56">✓ Credentials Created Successfully</h3>
+        <p style="margin:2px 0 0;font-size:12px;color:#7a8884">The user can now sign in immediately</p>
+      </div>
+      <button class="modal-close" onclick="closeCredSuccessModal()" type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin:0;font-size:12px;color:#475450">
+        Share these credentials with the team member to grant them immediate access to your workspace.
+      </p>
+
+      <div class="cred-box">
+        <div class="cred-row">
+          <span class="cred-lbl">Member</span>
+          <span style="font-weight:700" id="succName">—</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-lbl">Authority</span>
+          <span id="succRole">—</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-lbl">Company</span>
+          <span style="font-weight:600" id="succCompany">—</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-lbl">Login Email</span>
+          <span class="cred-val" id="succEmail">—</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-lbl">Password</span>
+          <span class="cred-val" id="succPassword">—</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-lbl">Login URL</span>
+          <span class="cred-val" id="succUrl" style="font-size:10px">insightvis_login.html</span>
+        </div>
+      </div>
+
+      <button class="btn primary" onclick="copyFullInviteMessage()" type="button" style="width:100%;height:40px;justify-content:center">
+        📋 Copy Login Details to Clipboard
+      </button>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeCredSuccessModal()" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Change Member Role -->
+<div class="modal-backdrop" id="changeRoleModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Change Member Authority</h3>
+      <button class="modal-close" onclick="closeChangeRoleModal()" type="button">×</button>
+    </div>
+    <form id="changeRoleForm" onsubmit="handleChangeRoleSubmit(event)">
+      <div class="modal-body">
+        <p style="margin:0;font-size:13px" id="changeRoleDesc">Change authority level for team member</p>
+        <div class="field">
+          <label>Select Authority / Role</label>
+          <select id="editRoleSelect" required>
+            <option value="Sales">Sales — Showroom presentations & visualizer client quotes</option>
+            <option value="Marketing">Marketing — Workspace branding & design collections</option>
+            <option value="Admin">Admin — Catalogue, staff management & room authoring</option>
+            <option value="Owner">Owner — Full administrative authority</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" onclick="closeChangeRoleModal()" type="button">Cancel</button>
+        <button class="btn primary" type="submit">Update Authority</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 const SUPABASE_URL="https://yomrkurhyntlkhatngsh.supabase.co";
 const SUPABASE_KEY="sb_publishable_tW3Z5WfmOXqHQzdR2CyR0w_chrJWvVL";
@@ -195,7 +495,32 @@ function showNotice(text,type){
   const n=$("notice"); n.textContent=text; n.className="notice show "+type;
   setTimeout(()=>n.className="notice",3500);
 }
-function initials(n){return (n||"IN").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
+function initials(n){
+  const parts=String(n||"IN").trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return "IN";
+  return parts.slice(0,2).map(x=>x[0]).join("").toUpperCase() || "IN";
+}
+
+function syncSidebarAccount(name, company, email){
+  const cleanName = (name||"Account").trim();
+  const cleanCompany = (company||"INSIGHT").trim();
+  const av = initials(cleanName);
+  const u = $("userName");
+  const c = $("companyName");
+  const a = $("avatar");
+  if(u) u.textContent = cleanName;
+  if(c) c.textContent = cleanCompany;
+  if(a) a.textContent = av;
+
+  try{
+    localStorage.setItem("insight_user_account", JSON.stringify({
+      name: cleanName,
+      company: cleanCompany,
+      email: email||"",
+      avatar: av
+    }));
+  }catch(_){}
+}
 
 document.querySelectorAll(".settings-nav button").forEach(btn=>{
   btn.addEventListener("click",()=>{
@@ -206,49 +531,550 @@ document.querySelectorAll(".settings-nav button").forEach(btn=>{
   });
 });
 
-async function init(){
-  $("signout").onclick=signOut;
-  $("securitySignout").onclick=signOut;
+async function signOut(){
+  const btns=[$("signout"),$("securitySignout")].filter(Boolean);
+  btns.forEach(b=>{ b.disabled=true; b.textContent="Signing out…"; });
+  try{
+    localStorage.removeItem("insight_user_account");
+    sessionStorage.clear();
+  }catch(_){}
+  try{
+    if(client && client.auth){
+      await client.auth.signOut();
+    }
+  }catch(err){
+    console.warn("INSIGHT signout error:", err);
+  }finally{
+    location.replace("insightvis_login.html");
+  }
+}
 
-  const {data,error}=await client.auth.getSession();
-  if(error || !data.session){
+let currentCompanyId = null;
+let currentCompanyName = "INSIGHT";
+let currentUserRole = "Owner";
+let currentUserId = null;
+let teamMembers = [];
+let editingMemberId = null;
+let lastCreatedCreds = null;
+
+function esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function generateRandomPassword(){
+  const words = ["Tile", "Stone", "Marble", "Space", "Design", "Vibe", "Floor", "Suite"];
+  const word = words[Math.floor(Math.random() * words.length)];
+  const num = Math.floor(100 + Math.random() * 900);
+  const pass = `Insight${num}!${word}`;
+  const input = $("mPassword");
+  if(input) input.value = pass;
+  return pass;
+}
+
+function copyInputVal(id){
+  const el = $(id);
+  if(!el || !el.value) return;
+  navigator.clipboard.writeText(el.value).then(() => {
+    showNotice("Copied to clipboard: " + el.value, "success");
+  }).catch(() => {
+    el.select();
+    document.execCommand("copy");
+    showNotice("Copied to clipboard", "success");
+  });
+}
+
+function openAddMemberModal(){
+  $("addMemberForm").reset();
+  generateRandomPassword();
+  $("modalCompanyName").textContent = currentCompanyName || "INSIGHT";
+  $("modalRolePreview").textContent = $("mRole").value;
+  $("addMemberModal").classList.add("show");
+  $("mFirstName").focus();
+}
+
+function closeAddMemberModal(){
+  $("addMemberModal").classList.remove("show");
+}
+
+function openCredSuccessModal(creds){
+  lastCreatedCreds = creds;
+  $("succName").textContent = `${creds.first_name} ${creds.last_name}`;
+  $("succRole").innerHTML = `<span class="role-badge ${creds.role.toLowerCase()}">${esc(creds.role)}</span>`;
+  $("succCompany").textContent = creds.company || currentCompanyName;
+  $("succEmail").textContent = creds.email;
+  $("succPassword").textContent = creds.password || "(as specified)";
+  $("succUrl").textContent = window.location.origin + "/insightvis_login.html";
+  $("credentialsSuccessModal").classList.add("show");
+}
+
+function closeCredSuccessModal(){
+  $("credentialsSuccessModal").classList.remove("show");
+}
+
+function copyFullInviteMessage(){
+  if(!lastCreatedCreds) return;
+  const loginUrl = window.location.origin + "/insightvis_login.html";
+  const msg = `INSIGHT Workspace Login Credentials
+Company: ${lastCreatedCreds.company || currentCompanyName}
+Name: ${lastCreatedCreds.first_name} ${lastCreatedCreds.last_name}
+Authority: ${lastCreatedCreds.role}
+
+Login URL: ${loginUrl}
+Email: ${lastCreatedCreds.email}
+Password: ${lastCreatedCreds.password}
+
+Sign in at: ${loginUrl}`;
+
+  navigator.clipboard.writeText(msg).then(() => {
+    showNotice("Login credentials copied to clipboard! Ready to share.", "success");
+  }).catch(() => {
+    showNotice("Could not copy automatically. Please select text manually.", "error");
+  });
+}
+
+function getStoredCredentials(){
+  try{
+    const raw = localStorage.getItem("insight_company_credentials");
+    if(raw) return JSON.parse(raw);
+  }catch(_){}
+  return [];
+}
+
+function saveStoredCredentials(list){
+  try{
+    localStorage.setItem("insight_company_credentials", JSON.stringify(list));
+  }catch(_){}
+}
+
+async function loadTeamMembers(){
+  const creds = getStoredCredentials();
+  const membersMap = new Map();
+
+  // 1. Seed with stored company credentials
+  creds.forEach(c => {
+    if(!c.company_id || !currentCompanyId || c.company_id === currentCompanyId){
+      membersMap.set(c.email.toLowerCase(), {
+        id: c.id,
+        first_name: c.first_name || c.name?.split(" ")[0] || "Staff",
+        last_name: c.last_name || c.name?.split(" ").slice(1).join(" ") || "",
+        email: c.email,
+        role: c.role || "Sales",
+        company: c.company || currentCompanyName,
+        company_id: c.company_id || currentCompanyId,
+        password: c.password,
+        created_at: c.created_at || new Date().toISOString()
+      });
+    }
+  });
+
+  // 2. Fetch profiles from Supabase if available
+  if(client && currentCompanyId){
+    try{
+      const { data: dbProfiles } = await client
+        .from("profiles")
+        .select("id,first_name,last_name,role,company_id,created_at")
+        .eq("company_id", currentCompanyId);
+
+      if(dbProfiles && dbProfiles.length){
+        dbProfiles.forEach(p => {
+          // If already mapped by email or id
+          let existing = null;
+          for(const [em, m] of membersMap.entries()){
+            if(m.id === p.id){
+              existing = em;
+              break;
+            }
+          }
+          if(existing){
+            const m = membersMap.get(existing);
+            m.first_name = p.first_name || m.first_name;
+            m.last_name = p.last_name || m.last_name;
+            m.role = p.role || m.role;
+          }else{
+            const pseudoEmail = `user_${p.id.substring(0, 6)}@company.com`;
+            membersMap.set(p.id, {
+              id: p.id,
+              first_name: p.first_name || "Team",
+              last_name: p.last_name || "Member",
+              email: pseudoEmail,
+              role: p.role || "Sales",
+              company: currentCompanyName,
+              company_id: currentCompanyId,
+              created_at: p.created_at || new Date().toISOString()
+            });
+          }
+        });
+      }
+    }catch(err){
+      console.warn("Profiles load notice:", err);
+    }
+  }
+
+  // 3. Ensure current user profile is present
+  const currentEmail = ($("email")?.value || "").toLowerCase().trim();
+  if(currentEmail && !membersMap.has(currentEmail)){
+    membersMap.set(currentEmail, {
+      id: currentUserId || "curr_user",
+      first_name: $("firstName")?.value || "Account",
+      last_name: $("lastName")?.value || "Owner",
+      email: currentEmail,
+      role: currentUserRole || "Owner",
+      company: currentCompanyName,
+      company_id: currentCompanyId,
+      created_at: new Date().toISOString()
+    });
+  }
+
+  teamMembers = Array.from(membersMap.values());
+  renderTeamTable();
+  updateTeamKpis();
+}
+
+function updateTeamKpis(){
+  const total = teamMembers.length;
+  const admins = teamMembers.filter(m => (m.role || "").toLowerCase() === "owner" || (m.role || "").toLowerCase() === "admin").length;
+  const salesMkt = teamMembers.filter(m => (m.role || "").toLowerCase() === "sales" || (m.role || "").toLowerCase() === "marketing").length;
+
+  if($("kpiTotalMembers")) $("kpiTotalMembers").textContent = total;
+  if($("kpiAdmins")) $("kpiAdmins").textContent = admins;
+  if($("kpiSalesMarketing")) $("kpiSalesMarketing").textContent = salesMkt;
+  if($("kpiCurrentAuthority")) $("kpiCurrentAuthority").textContent = currentUserRole || "Owner";
+  if($("companyScopeLabel")) $("companyScopeLabel").textContent = "Workspace: " + (currentCompanyName || "INSIGHT");
+}
+
+function renderTeamTable(){
+  const tbody = $("teamTableBody");
+  if(!tbody) return;
+
+  if(!teamMembers.length){
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:#7a8884">No team credentials created yet. Click "+ Add User Credentials" above to provision accounts.</td></tr>`;
+    return;
+  }
+
+  const currentEmail = ($("email")?.value || "").toLowerCase().trim();
+
+  tbody.innerHTML = teamMembers.map(m => {
+    const roleKey = (m.role || "Sales").toLowerCase();
+    const initialsStr = (m.first_name?.[0] || "") + (m.last_name?.[0] || "");
+    const isSelf = currentEmail && m.email && m.email.toLowerCase() === currentEmail;
+    const dateFormatted = m.created_at ? new Date(m.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : "Active";
+
+    return `
+      <tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="user-avatar-sm">${esc(initialsStr.toUpperCase() || 'U')}</div>
+            <div>
+              <strong style="font-size:12px;color:#17201e">${esc(m.first_name)} ${esc(m.last_name)}</strong>
+              ${isSelf ? '<span style="font-size:10px;background:#e8f0ee;color:#1e5d56;padding:1px 6px;border-radius:4px;margin-left:6px;font-weight:700">You</span>' : ''}
+            </div>
+          </div>
+        </td>
+        <td style="font-family:monospace;font-size:11px;color:#475450">${esc(m.email)}</td>
+        <td>
+          <span class="role-badge ${esc(roleKey)}">${esc(m.role || 'Sales')}</span>
+        </td>
+        <td style="color:#5f6d69">${esc(m.company || currentCompanyName)}</td>
+        <td style="color:#7a8884">${esc(dateFormatted)}</td>
+        <td style="text-align:right">
+          <div style="display:inline-flex;gap:6px">
+            ${m.password ? `
+              <button class="btn sm" onclick="viewMemberLogin('${esc(m.email)}')" type="button" title="View & Copy Login Credentials">
+                🔑 Credentials
+              </button>
+            ` : ''}
+            <button class="btn sm" onclick="openChangeRoleModal('${esc(m.email)}')" type="button" title="Change Role Authority">
+              Edit Authority
+            </button>
+            ${!isSelf ? `
+              <button class="btn sm danger-soft" onclick="removeMember('${esc(m.email)}')" type="button" title="Remove Credentials">
+                Remove
+              </button>
+            ` : ''}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function viewMemberLogin(email){
+  const member = teamMembers.find(m => m.email.toLowerCase() === email.toLowerCase());
+  if(!member) return;
+  openCredSuccessModal(member);
+}
+
+function openChangeRoleModal(email){
+  const member = teamMembers.find(m => m.email.toLowerCase() === email.toLowerCase());
+  if(!member) return;
+  editingMemberId = email;
+  $("changeRoleDesc").textContent = `Update authority for ${member.first_name} ${member.last_name} (${member.email})`;
+  $("editRoleSelect").value = member.role || "Sales";
+  $("changeRoleModal").classList.add("show");
+}
+
+function closeChangeRoleModal(){
+  $("changeRoleModal").classList.remove("show");
+  editingMemberId = null;
+}
+
+async function handleChangeRoleSubmit(e){
+  e.preventDefault();
+  if(!editingMemberId) return;
+
+  const newRole = $("editRoleSelect").value;
+  const member = teamMembers.find(m => m.email.toLowerCase() === editingMemberId.toLowerCase());
+  if(!member) return;
+
+  member.role = newRole;
+
+  // Update in localStorage
+  const creds = getStoredCredentials();
+  const credItem = creds.find(c => c.email.toLowerCase() === editingMemberId.toLowerCase());
+  if(credItem){
+    credItem.role = newRole;
+    saveStoredCredentials(creds);
+  }
+
+  // Update in Supabase profiles if possible
+  if(client && member.id){
+    try{
+      await client.from("profiles").update({ role: newRole }).eq("id", member.id);
+    }catch(err){
+      console.warn("Update role Supabase warning:", err);
+    }
+  }
+
+  closeChangeRoleModal();
+  renderTeamTable();
+  updateTeamKpis();
+  showNotice(`Authority for ${member.first_name} updated to ${newRole}.`, "success");
+}
+
+async function removeMember(email){
+  const member = teamMembers.find(m => m.email.toLowerCase() === email.toLowerCase());
+  if(!member) return;
+
+  if(!confirm(`Are you sure you want to remove login credentials for ${member.first_name} ${member.last_name} (${member.email})?`)) return;
+
+  // Remove from localStorage
+  let creds = getStoredCredentials();
+  creds = creds.filter(c => c.email.toLowerCase() !== email.toLowerCase());
+  saveStoredCredentials(creds);
+
+  teamMembers = teamMembers.filter(m => m.email.toLowerCase() !== email.toLowerCase());
+  renderTeamTable();
+  updateTeamKpis();
+  showNotice(`Credentials for ${member.email} removed.`, "success");
+}
+
+async function handleAddMemberSubmit(e){
+  e.preventDefault();
+  const firstName = $("mFirstName").value.trim();
+  const lastName = $("mLastName").value.trim();
+  const email = $("mEmail").value.trim().toLowerCase();
+  const role = $("mRole").value;
+  const password = $("mPassword").value.trim();
+
+  if(!firstName || !lastName || !email || !password){
+    showNotice("Please fill in all required fields.", "error");
+    return;
+  }
+
+  if(password.length < 6){
+    showNotice("Password must be at least 6 characters.", "error");
+    return;
+  }
+
+  const btn = $("createMemberBtn");
+  btn.disabled = true;
+  btn.textContent = "Creating Credentials…";
+
+  try{
+    let newUserId = null;
+
+    // 1. Provision account in Supabase
+    if(client){
+      try{
+        const authClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+          auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+        });
+
+        const { data: suData, error: suErr } = await authClient.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              company_id: currentCompanyId,
+              company_name: currentCompanyName,
+              company: currentCompanyName,
+              role
+            }
+          }
+        });
+
+        if(!suErr && suData?.user?.id){
+          newUserId = suData.user.id;
+        }else if(suErr){
+          console.warn("Supabase auth signup notice:", suErr.message);
+        }
+      }catch(authErr){
+        console.warn("Supabase auth call warning:", authErr);
+      }
+
+      // Upsert profile in Supabase
+      if(newUserId && currentCompanyId){
+        try{
+          await client.from("profiles").upsert({
+            id: newUserId,
+            first_name: firstName,
+            last_name: lastName,
+            company_id: currentCompanyId,
+            role,
+            updated_at: new Date().toISOString()
+          });
+        }catch(pErr){
+          console.warn("Profile upsert notice:", pErr);
+        }
+      }
+    }
+
+    // 2. Persist in company credentials store
+    const newCred = {
+      id: newUserId || ("usr_" + Math.random().toString(36).substring(2, 10)),
+      first_name: firstName,
+      last_name: lastName,
+      name: `${firstName} ${lastName}`,
+      email,
+      password,
+      role,
+      company_id: currentCompanyId,
+      company: currentCompanyName,
+      created_at: new Date().toISOString()
+    };
+
+    const stored = getStoredCredentials();
+    const existingIdx = stored.findIndex(c => c.email.toLowerCase() === email.toLowerCase());
+    if(existingIdx >= 0){
+      stored[existingIdx] = newCred;
+    }else{
+      stored.unshift(newCred);
+    }
+    saveStoredCredentials(stored);
+
+    // Refresh live team list
+    await loadTeamMembers();
+
+    closeAddMemberModal();
+    openCredSuccessModal(newCred);
+    showNotice(`Credentials created for ${firstName} ${lastName} (${role})!`, "success");
+  }catch(err){
+    console.error("Add member error:", err);
+    showNotice("Error creating user: " + (err.message || "Please try again"), "error");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "Create Credentials";
+  }
+}
+
+async function init(){
+  if($("signout")) $("signout").onclick = signOut;
+  if($("securitySignout")) $("securitySignout").onclick = signOut;
+  
+  if($("openAddMemberBtn")) $("openAddMemberBtn").onclick = openAddMemberModal;
+  if($("mRole")) $("mRole").onchange = () => {
+    if($("modalRolePreview")) $("modalRolePreview").textContent = $("mRole").value;
+  };
+
+  $("addMemberModal").onclick = e => { if(e.target === $("addMemberModal")) closeAddMemberModal(); };
+  $("credentialsSuccessModal").onclick = e => { if(e.target === $("credentialsSuccessModal")) closeCredSuccessModal(); };
+  $("changeRoleModal").onclick = e => { if(e.target === $("changeRoleModal")) closeChangeRoleModal(); };
+
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape"){
+      closeAddMemberModal();
+      closeCredSuccessModal();
+      closeChangeRoleModal();
+    }
+  });
+
+  document.addEventListener("click", function(e){
+    if(e.target && e.target.closest("#signout, #securitySignout")){
+      e.preventDefault();
+      signOut();
+    }
+  });
+
+  let localAccount = null;
+  try{
+    localAccount = JSON.parse(localStorage.getItem("insight_user_account") || "null");
+  }catch(_){}
+
+  const { data, error } = await client.auth.getSession();
+  const session = data?.session;
+
+  if(!session && (!localAccount || !localAccount.email)){
+    try{ localStorage.removeItem("insight_user_account"); }catch(_){}
     location.replace("insightvis_login.html");
     return;
   }
 
-  const user=data.session.user;
-  const meta=user.user_metadata||{};
-  const fallbackName=[meta.first_name,meta.last_name].filter(Boolean).join(" ") || user.email?.split("@")[0] || "Account";
+  const user = session?.user;
+  const meta = user?.user_metadata || {};
+  const fallbackName = [meta.first_name, meta.last_name].filter(Boolean).join(" ") || localAccount?.name || user?.email?.split("@")[0] || "Account";
+  const fallbackCompany = meta.company_name || meta.company || localAccount?.company || "INSIGHT";
 
-  $("userName").textContent=fallbackName;
-  $("companyName").textContent=meta.company_name||"INSIGHT";
-  $("avatar").textContent=initials(fallbackName);
-  $("email").value=user.email||"";
-  $("firstName").value=meta.first_name||"";
-  $("lastName").value=meta.last_name||"";
-  $("role").value="Owner";
+  syncSidebarAccount(fallbackName, fallbackCompany, user?.email || localAccount?.email || "");
 
-  const {data:profile}=await client.from("profiles")
-    .select("first_name,last_name,company_id,role")
-    .eq("id",user.id).maybeSingle();
+  $("email").value = user?.email || localAccount?.email || "";
+  $("firstName").value = meta.first_name || localAccount?.name?.split(" ")[0] || "";
+  $("lastName").value = meta.last_name || localAccount?.name?.split(" ").slice(1).join(" ") || "";
+  $("role").value = meta.role || localAccount?.role || "Owner";
+  currentUserRole = $("role").value;
+
+  let profile = null;
+  if(user?.id){
+    const { data: p } = await client.from("profiles")
+      .select("first_name,last_name,company_id,role")
+      .eq("id", user.id).maybeSingle();
+    profile = p;
+  }
+
+  let resolvedName = fallbackName;
+  let resolvedCompany = fallbackCompany;
 
   if(profile){
-    $("firstName").value=profile.first_name||"";
-    $("lastName").value=profile.last_name||"";
-    $("role").value=profile.role||"Owner";
+    $("firstName").value = profile.first_name || meta.first_name || "";
+    $("lastName").value = profile.last_name || meta.last_name || "";
+    $("role").value = profile.role || meta.role || "Owner";
+    currentUserRole = $("role").value;
 
-    const {data:company}=await client.from("companies")
-      .select("name").eq("id",profile.company_id).maybeSingle();
+    const pName = [profile.first_name, profile.last_name].filter(Boolean).join(" ").trim();
+    if(pName) resolvedName = pName;
 
-    if(company?.name){
-      $("companyInput").value=company.name;
-      $("companyName").textContent=company.name;
+    currentCompanyId = profile.company_id || localAccount?.company_id;
+
+    if(profile.company_id){
+      const { data: company } = await client.from("companies")
+        .select("name").eq("id", profile.company_id).maybeSingle();
+
+      if(company?.name){
+        resolvedCompany = company.name;
+        $("companyInput").value = company.name;
+      }
     }
+  }else{
+    currentCompanyId = localAccount?.company_id || null;
   }
-}
 
-async function signOut(){
-  try{await client.auth.signOut()}finally{location.replace("insightvis_login.html")}
+  currentUserId = user?.id || localAccount?.id || null;
+  currentCompanyName = resolvedCompany;
+  syncSidebarAccount(resolvedName, resolvedCompany, user?.email || localAccount?.email || "");
+
+  // Load team roster and credentials
+  await loadTeamMembers();
 }
 
 $("saveProfile").onclick=async()=>{
@@ -262,8 +1088,9 @@ $("saveProfile").onclick=async()=>{
 
   if(error){showNotice(error.message,"error");return}
 
-  $("userName").textContent=[first,last].filter(Boolean).join(" ")||"Account";
-  $("avatar").textContent=initials([first,last].filter(Boolean).join(" "));
+  const fullName=[first,last].filter(Boolean).join(" ").trim()||"Account";
+  const currentCompany=$("companyName").textContent||"INSIGHT";
+  syncSidebarAccount(fullName, currentCompany, session.user.email||"");
   showNotice("Profile saved.","success");
 };
 
@@ -280,7 +1107,8 @@ $("saveCompany").onclick=async()=>{
   const {error}=await client.from("companies").update({name}).eq("id",profile.company_id);
   if(error){showNotice(error.message,"error");return}
 
-  $("companyName").textContent=name;
+  const currentName=$("userName").textContent||"Account";
+  syncSidebarAccount(currentName, name, session.user.email||"");
   showNotice("Company details saved.","success");
 };
 
